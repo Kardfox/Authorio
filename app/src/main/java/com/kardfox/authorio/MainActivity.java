@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main_not_login);
 
             FragmentTransaction fTransaction = fManager.beginTransaction();
-            fTransaction.add(R.id.accountContainer, fLogIn, "logIn");
+            fTransaction.add(R.id.accountContainer, fLogIn, "switch");
             fTransaction.commit();
             return;
         }
@@ -93,57 +93,50 @@ public class MainActivity extends AppCompatActivity {
         toWrite = findViewById(R.id.buttonToWrite);
 
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.fragmentContainer, fMain, "main");
+        fTransaction.add(R.id.fragmentContainer, fMain, "switch");
         fTransaction.commit();
 
         toMain.setOnClickListener(view -> {
-            switchTo(R.id.fragmentContainer, 0);
+            switchTo(Section.MAIN);
         });
 
         toSearch.setOnClickListener(view -> {
-            switchTo(R.id.fragmentContainer, 1);
+            switchTo(Section.SEARCH);
         });
 
         toWrite.setOnClickListener(view -> {
-            switchTo(R.id.fragmentContainer, 2);
+            switchTo(Section.WRITE);
         });
     }
 
-    public void changeFragment(int containerId, Fragment newFragment, String tag, int[] enter_exit) {
+    public void changeFragment(Fragment newFragment, int[] enter_exit) {
         FragmentTransaction fTransaction = fManager.beginTransaction();
 
         Log.i(this.LOG_TAG_MAIN, "Switching!");
 
         fTransaction.setCustomAnimations(enter_exit[0], enter_exit[1]);
-        fTransaction.replace(containerId, newFragment, tag);
+        fTransaction.replace(R.id.fragmentContainer, newFragment, "switch");
         fTransaction.addToBackStack(null).commit();
     }
 
-    public void switchTo(int containerId, int toSection) {
-        if (toSection == 0) {
-            disableNotSelected();
-            toMain.setBackground(AppCompatResources.getDrawable(this, R.drawable.main_draw_sel));
-            if (selected > toSection) {
-                changeFragment(containerId, fMain, "main", new int[] {R.anim.slide_left_enter, R.anim.slide_right_exit});
-            }
-            selected = toSection;
-        } else if (toSection == 1) {
-            disableNotSelected();
-            toSearch.setBackground(AppCompatResources.getDrawable(this, R.drawable.search_draw_sel));
-            if (selected > toSection) {
-                changeFragment(containerId, fSearch, "toSearch", new int[] {R.anim.slide_left_enter, R.anim.slide_right_exit});
-            } else {
-                changeFragment(containerId, fSearch, "toSearch", new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
-            }
-            selected = toSection;
-        } else {
-            disableNotSelected();
-            toWrite.setBackground(AppCompatResources.getDrawable(this, R.drawable.write_book_sel));
-            if (selected < toSection) {
-                changeFragment(containerId, fWrite, "toWrite", new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
-            }
-            selected = toSection;
+    public void switchTo(Section section) {
+        int[] drawables = new int[] {R.drawable.main_draw_sel, R.drawable.search_draw_sel, R.drawable.write_book_sel};
+        ImageButton[] buttons = new ImageButton[] {toMain, toSearch, toWrite};
+        Fragment[] fragments = new Fragment[] {fMain, fSearch, fWrite};
+
+        int toSection = section.ordinal();
+
+        buttons[toSection].setBackground(AppCompatResources.getDrawable(this, drawables[toSection]));
+
+        if (selected > toSection) {
+            changeFragment(fragments[toSection], new int[] {R.anim.slide_left_enter, R.anim.slide_right_exit});
+        } else if (selected < toSection) {
+            changeFragment(fragments[toSection], new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
         }
+
+        disableNotSelected();
+
+        selected = toSection;
     }
 
     private boolean checkLogin(SQLiteDatabase db) {
@@ -174,5 +167,13 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 toWrite.setBackground(AppCompatResources.getDrawable(this, R.drawable.write_book));
         }
+    }
+
+    public enum Section {
+        MAIN(0),
+        SEARCH(1),
+        WRITE(2);
+
+        Section(int section) {}
     }
 }

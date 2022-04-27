@@ -34,18 +34,20 @@ public class NotificationView extends ConstraintLayout {
         view = inflate(getContext(), R.layout.notification_view, null);
     }
 
-    public void setData(String image, String name, String text, String datetime) {
+    public void setData(NotificationModel notificationModel, OnClickListener listener) {
         ImageView authorPhoto = view.findViewById(R.id.authorPhotoNote);
         TextView authorName = view.findViewById(R.id.authorNameNote);
         TextView textNote = view.findViewById(R.id.noteText);
         TextView dateNote = view.findViewById(R.id.noteDate);
 
-        byte[] imageBytes = Base64.decode(image, 0);
+        byte[] imageBytes = Base64.decode(notificationModel.author_photo, 0);
 
         authorPhoto.setImageBitmap(BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length));
-        authorName.setText(name);
-        textNote.setText(text);
-        dateNote.setText(datetime);
+        authorName.setText(notificationModel.author_name);
+        textNote.setText(notificationModel.text);
+        dateNote.setText(notificationModel.datetime);
+
+        this.getView().setOnClickListener(listener);
     }
 
     public View getView() { return view; }

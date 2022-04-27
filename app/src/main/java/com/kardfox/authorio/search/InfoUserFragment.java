@@ -64,17 +64,13 @@ public class InfoUserFragment extends Fragment {
         if (notifications != null) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             for (NotificationModel notification : notifications) {
-                String notificationText;
                 switch (notification.object_type) {
-                    case 1:
-                        notificationText = notification.text; break;
                     case 5:
-                        notificationText = String.format("%s\n%s", notification.title, notification.text); break;
+                        notification.text = String.format("%s\n%s", notification.title, notification.text); break;
                     default:
-                        notificationText = notification.title; break;
+                        notification.text = notification.title; break;
                 }
                 NotificationView notificationView = new NotificationView(getContext());
-                notificationView.setData(notification.author_photo, notification.author_name, notificationText, notification.datetime);
 
                 View noteV = notificationView.getView();
                 noteV.setPadding(0, 20, 0, 0);

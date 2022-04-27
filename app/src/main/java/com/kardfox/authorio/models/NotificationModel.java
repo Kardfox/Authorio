@@ -1,5 +1,6 @@
 package com.kardfox.authorio.models;
 
+
 public class NotificationModel {
     public int user_id;
     public String title;
@@ -20,5 +21,19 @@ public class NotificationModel {
         this.object_id = object_id;
         this.object_type = object_type;
         this.datetime = datetime;
+    }
+
+    public enum NotificationTypes {
+        NEW_NOTE(1),
+        NEW_BOOK(2),
+        NEW_CHAPTER(3),
+        NEW_LOVER(4),
+        NEW_COMMENTARY(5),
+        NEW_HATER(6);
+
+        public int intType;
+        NotificationTypes(int intType) {
+            this.intType = intType;
+        }
     }
 }

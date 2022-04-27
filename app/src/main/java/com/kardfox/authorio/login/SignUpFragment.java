@@ -133,7 +133,7 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int[] anim = {R.anim.slide_left_enter, R.anim.slide_right_exit};
-                activity.changeFragment(R.id.accountContainer, activity.fLogIn, "logIn", anim);
+                activity.changeFragment(activity.fLogIn, anim);
             }
         });
 

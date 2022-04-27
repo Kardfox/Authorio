@@ -17,14 +17,16 @@ import com.kardfox.authorio.R;
 import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.UserModel;
 import com.kardfox.authorio.search.InfoUserFragment;
+import com.kardfox.authorio.search.SearchFragment;
 
 
 public class MainFragment extends Fragment {
+    public MainActivity activity = null;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        MainActivity activity = (MainActivity) context;
+        activity = (MainActivity) context;
         LoveAuthorView.LoveAuthor.updateList(activity.GLOBAL_USER);
         NotificationView.Notification.updateList(activity.GLOBAL_USER);
     }
@@ -51,8 +53,7 @@ public class MainFragment extends Fragment {
                 View loveAuthorV = loveAuthorView.getView();
                 loveAuthorV.setOnClickListener(view -> {
                     InfoUserFragment fInfoUser = new InfoUserFragment(loveAuthor.id);
-                    MainActivity activity = ((MainActivity) getActivity());
-                    activity.changeFragment(R.id.fragmentContainer, fInfoUser, "toInfo", new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
+                    activity.changeFragment(fInfoUser, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
                 });
                 loveAuthorV.setPadding(15, 0, 0, 0);
                 container.addView(loveAuthorV, layoutParams);
@@ -65,17 +66,15 @@ public class MainFragment extends Fragment {
     public void loadNotifications(LinearLayout container) {
         if (NotificationView.Notification.notifications != null) {
             for (NotificationModel notification : NotificationView.Notification.notifications) {
-                String notificationText;
-                switch (notification.object_type) {
-                    case 1:
-                        notificationText = notification.text; break;
-                    case 5:
-                        notificationText = String.format("%s\n%s", notification.title, notification.text); break;
-                    default:
-                        notificationText = notification.title; break;
+                if (notification.object_type == 5) {
+                    notification.text = String.format("%s\n%s", notification.title, notification.text);
+                } else {
+                    notification.text = notification.title;
                 }
                 NotificationView notificationView = new NotificationView(getContext());
-                notificationView.setData(notification.author_photo, notification.author_name, notificationText, notification.datetime);
+
+                View.OnClickListener listener = view -> SearchFragment.search(activity, notification);
+                notificationView.setData(notification, listener);
 
                 View noteV = notificationView.getView();
                 noteV.setPadding(0, 20, 0, 0);
