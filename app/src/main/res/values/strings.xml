@@ -1,0 +1,34 @@
+<resources>
+    <!-- GENERAL -->
+    <string name="app_name">Authorio</string>
+
+    <!-- MAIN -->
+    <string name="welcomeMain">Welcome to Authorio, %s!</string>
+
+    <!-- LOGIN -->
+    <string name="namePlaceholder">Name</string>
+    <string name="surnamePlaceholder">Surname</string>
+    <string name="emailPlaceholder">Email</string>
+    <string name="passwordPlaceholder">Password</string>
+
+    <string name="buttonLogInText">Log In</string>
+    <string name="buttonSignUpText">Sign Up</string>
+
+    <!-- WARNINGS -->
+    <string name="appError">Error in app</string>
+    <string name="userNotFound">User not found</string>
+    <string name="wrongPassword">Wrong password</string>
+    <string name="shortPassword">Too short password</string>
+    <string name="nameIsEmpty">Name is empty</string>
+    <string name="surnameIsEmpty">Surname is empty</string>
+    <string name="emailIsEmpty">Email is empty</string>
+    <string name="invalidEmail">Invalid email</string>
+    <string name="emailIsExists">Email is exists</string>
+    <string name="serverError">Server error</string>
+
+    <!-- MAIN -->
+    <string name="authorListText">Authors:</string>
+    <string name="nullPlaceholder">\nNo notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

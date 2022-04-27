@@ -1,0 +1,30 @@
+<resources>
+    <!-- GENERAL -->
+    <string name="app_name">Уголок</string>
+
+    <!-- LOGIN -->
+    <string name="namePlaceholder">Имя</string>
+    <string name="surnamePlaceholder">Фамилия</string>
+    <string name="emailPlaceholder">Эл. почта</string>
+    <string name="passwordPlaceholder">Пароль</string>
+
+    <string name="buttonLogInText">Войти </string>
+    <string name="buttonSignUpText">Регистрация </string>
+
+    <!-- WARNINGS -->
+    <string name="appError">Ошибка приложения</string>
+    <string name="userNotFound">Пользователь не найден</string>
+    <string name="wrongPassword">Неверный пароль</string>
+    <string name="welcomeMain">Добро пожаловать в Authorio, %s!</string>
+    <string name="shortPassword">Короткий пароль</string>
+    <string name="nameIsEmpty">Пустое имя</string>
+    <string name="surnameIsEmpty">Пустая фамилия</string>
+    <string name="emailIsEmpty">Эл. почта пустая</string>
+    <string name="invalidEmail">Неверная почта</string>
+    <string name="emailIsExists">Эл. почта уже уществует</string>
+    <string name="serverError">Ошибка сервера</string>
+
+    <!-- MAIN -->
+    <string name="authorListText">Авторы:</string>
+    <string name="nullPlaceholder">\nУведомления отсутствуют</string>
+</resources>

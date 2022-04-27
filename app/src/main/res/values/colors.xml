@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_blue">#2FB7F0</color>
+    <color name="second_pink">#D525BD</color>
+
+    <color name="error">#FF0000</color>
+
+    <color name="black">#FF000000</color>
+    <color name="gray">#AAAAAA</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
