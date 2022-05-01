@@ -119,24 +119,25 @@ public class MainActivity extends AppCompatActivity {
         fTransaction.addToBackStack(null).commit();
     }
 
-    public void switchTo(Section section) {
+    public void setSelected(Section section) {
+        selected = section.ordinal();
         int[] drawables = new int[] {R.drawable.main_draw_sel, R.drawable.search_draw_sel, R.drawable.write_book_sel};
         ImageButton[] buttons = new ImageButton[] {toMain, toSearch, toWrite};
+        disable();
+        buttons[selected].setBackground(AppCompatResources.getDrawable(this, drawables[selected]));
+    }
+
+    public void switchTo(Section section) {
         Fragment[] fragments = new Fragment[] {fMain, fSearch, fWrite};
 
         int toSection = section.ordinal();
-
-        buttons[toSection].setBackground(AppCompatResources.getDrawable(this, drawables[toSection]));
 
         if (selected > toSection) {
             changeFragment(fragments[toSection], new int[] {R.anim.slide_left_enter, R.anim.slide_right_exit});
         } else if (selected < toSection) {
             changeFragment(fragments[toSection], new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
         }
-
-        disableNotSelected();
-
-        selected = toSection;
+        setSelected(section);
     }
 
     private boolean checkLogin(SQLiteDatabase db) {
@@ -158,15 +159,10 @@ public class MainActivity extends AppCompatActivity {
         initMain();
     }
 
-    private void disableNotSelected() {
-        switch (selected) {
-            case 0:
-                toMain.setBackground(AppCompatResources.getDrawable(this, R.drawable.main_draw)); break;
-            case 1:
-                toSearch.setBackground(AppCompatResources.getDrawable(this, R.drawable.search_draw)); break;
-            case 2:
-                toWrite.setBackground(AppCompatResources.getDrawable(this, R.drawable.write_book));
-        }
+    private void disable() {
+        toMain.setBackground(AppCompatResources.getDrawable(this, R.drawable.main_draw));
+        toSearch.setBackground(AppCompatResources.getDrawable(this, R.drawable.search_draw));
+        toWrite.setBackground(AppCompatResources.getDrawable(this, R.drawable.write_book));
     }
 
     public enum Section {

@@ -27,4 +27,5 @@
     <!-- MAIN -->
     <string name="authorListText">Авторы:</string>
     <string name="nullPlaceholder">\nУведомления отсутствуют</string>
+    <string name="search">Книга, библиотека или автор</string>
 </resources>

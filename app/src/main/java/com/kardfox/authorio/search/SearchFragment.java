@@ -5,9 +5,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.MainActivity.Section;
@@ -20,7 +26,7 @@ public class SearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static void search(MainActivity activity, NotificationModel notification) {
+    public static void showNotificationObject(MainActivity activity, NotificationModel notification) {
         if (notification.object_type == NotificationTypes.NEW_NOTE.intType) {
             // TODO: make new_note
         } else if (notification.object_type == NotificationTypes.NEW_BOOK.intType) {
@@ -30,8 +36,12 @@ public class SearchFragment extends Fragment {
         } else if (notification.object_type == NotificationTypes.NEW_LOVER.intType) {
             InfoUserFragment infoUserFragment = new InfoUserFragment(notification.object_id);
 
-            activity.switchTo(Section.SEARCH);
+            activity.setSelected(Section.SEARCH);
             activity.changeFragment(infoUserFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
+        } else if (notification.object_type == NotificationTypes.NEW_COMMENTARY.intType) {
+            // TODO: make new_commentary
+        } else if (notification.object_type == NotificationTypes.NEW_HATER.intType) {
+            // TODO: make new_hater
         }
     }
 
@@ -43,7 +53,26 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        EditText editSearch = view.findViewById(R.id.editSearch);
+        LinearLayout searchContainer = view.findViewById(R.id.searchContainer);
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                TextView child = new TextView(getContext());
+                child.setText(editable);
+                searchContainer.addView(child);
+            }
+        });
+        return view;
+    }
+
+    private void search(String text) {
+        
     }
 }

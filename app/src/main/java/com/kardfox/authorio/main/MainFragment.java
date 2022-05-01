@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.kardfox.authorio.MainActivity;
+import com.kardfox.authorio.MainActivity.Section;
 import com.kardfox.authorio.R;
 import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.UserModel;
@@ -54,6 +55,7 @@ public class MainFragment extends Fragment {
                 loveAuthorV.setOnClickListener(view -> {
                     InfoUserFragment fInfoUser = new InfoUserFragment(loveAuthor.id);
                     activity.changeFragment(fInfoUser, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
+                    activity.setSelected(Section.SEARCH);
                 });
                 loveAuthorV.setPadding(15, 0, 0, 0);
                 container.addView(loveAuthorV, layoutParams);
@@ -73,7 +75,7 @@ public class MainFragment extends Fragment {
                 }
                 NotificationView notificationView = new NotificationView(getContext());
 
-                View.OnClickListener listener = view -> SearchFragment.search(activity, notification);
+                View.OnClickListener listener = view -> SearchFragment.showNotificationObject(activity, notification);
                 notificationView.setData(notification, listener);
 
                 View noteV = notificationView.getView();

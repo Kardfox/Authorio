@@ -29,6 +29,9 @@
     <!-- MAIN -->
     <string name="authorListText">Authors:</string>
     <string name="nullPlaceholder">\nNo notifications</string>
+
+    <!-- SEARCH -->
+    <string name="search">Book, library or user</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
