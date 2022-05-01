@@ -15,13 +15,24 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.MainActivity.Section;
 import com.kardfox.authorio.R;
+import com.kardfox.authorio.main.LoveAuthorView;
 import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.NotificationModel.NotificationTypes;
+import com.kardfox.authorio.models.UserModel;
+import com.kardfox.authorio.server_client.Client;
+import com.kardfox.authorio.server_client.Server;
+
+import org.json.JSONObject;
+
+import java.net.URL;
 
 public class SearchFragment extends Fragment {
+    LinearLayout userContainer = null;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -37,7 +48,7 @@ public class SearchFragment extends Fragment {
             InfoUserFragment infoUserFragment = new InfoUserFragment(notification.object_id);
 
             activity.setSelected(Section.SEARCH);
-            activity.changeFragment(infoUserFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
+            activity.changeFragment(infoUserFragment, new int[]{R.anim.slide_right_enter, R.anim.slide_left_exit});
         } else if (notification.object_type == NotificationTypes.NEW_COMMENTARY.intType) {
             // TODO: make new_commentary
         } else if (notification.object_type == NotificationTypes.NEW_HATER.intType) {
@@ -55,24 +66,73 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         EditText editSearch = view.findViewById(R.id.editSearch);
-        LinearLayout searchContainer = view.findViewById(R.id.searchContainer);
+        userContainer = view.findViewById(R.id.searchAuthors);
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                TextView child = new TextView(getContext());
-                child.setText(editable);
-                searchContainer.addView(child);
+                search(editable.toString());
             }
         });
         return view;
     }
 
+    private UserModel[] loadUsers(String text) {
+        Server.Response response = null;
+
+        text = String.format("%s%%", text);
+
+        try {
+            JSONObject json = new JSONObject();
+            json.put("name", text);
+            json.put("surname", text);
+
+            URL url = new URL(Server.URLs.get_user);
+            Client.Post post = new Client.Post(url, json);
+            post.execute();
+
+            response = post.get();
+        } catch (Exception exception) {
+            Log.e(MainActivity.LOG_TAG, exception.getMessage());
+        }
+
+        if (response != null && response.code == 200) {
+            Gson gson = new GsonBuilder().create();
+
+            return gson.fromJson(response.response, UserModel[].class);
+        } else {
+            return null;
+        }
+    }
+
     private void search(String text) {
-        
+        MainActivity activity = (MainActivity) getActivity();
+        if (text.equals("")) {
+            userContainer.removeAllViews();
+            return;
+        }
+        UserModel[] users = loadUsers(text);
+        LinearLayout.LayoutParams layoutParamsUsers = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        userContainer.removeAllViews();
+        for (UserModel user : users) {
+            LoveAuthorView loveAuthorView = new LoveAuthorView(getContext());
+            loveAuthorView.setData(user.photo, user.name);
+
+            View loveAuthorV = loveAuthorView.getView();
+            loveAuthorV.setOnClickListener(view -> {
+                InfoUserFragment fInfoUser = new InfoUserFragment(user.id);
+                activity.changeFragment(fInfoUser, new int[]{R.anim.slide_right_enter, R.anim.slide_left_exit});
+                activity.setSelected(Section.SEARCH);
+            });
+            loveAuthorV.setPadding(15, 0, 0, 0);
+            userContainer.addView(loveAuthorV, layoutParamsUsers);
+        }
     }
 }
