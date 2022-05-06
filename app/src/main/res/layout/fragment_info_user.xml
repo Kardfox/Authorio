@@ -71,11 +71,36 @@
 
                 <View
                     android:id="@+id/divider5"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="?android:attr/listDivider"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/buttonSubscribe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subscribe"
+                    app:layout_constraintBottom_toBottomOf="@+id/loveAuthorView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.959"
+                    app:layout_constraintStart_toEndOf="@+id/loveAuthorView"
+                    app:layout_constraintTop_toTopOf="@+id/loveAuthorView"
+                    app:layout_constraintVertical_bias="0.403" />
+
+                <TextView
+                    android:id="@+id/subscribersCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/buttonSubscribe"
+                    app:layout_constraintHorizontal_bias="0.508"
+                    app:layout_constraintStart_toStartOf="@+id/buttonSubscribe"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonSubscribe"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

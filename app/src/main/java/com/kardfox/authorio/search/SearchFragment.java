@@ -87,12 +87,14 @@ public class SearchFragment extends Fragment {
     private UserModel[] loadUsers(String text) {
         Server.Response response = null;
 
-        text = String.format("%s%%", text);
+        String name = String.format("%s%%", text.split(" ")[0]);
+        String surname = String.format("%s |", text);
+        surname = String.format("%s%%", surname.split(" ")[1]);
 
         try {
             JSONObject json = new JSONObject();
-            json.put("name", text);
-            json.put("surname", text);
+            json.put("name", name);
+            json.put("surname", surname);
 
             URL url = new URL(Server.URLs.get_user);
             Client.Post post = new Client.Post(url, json);

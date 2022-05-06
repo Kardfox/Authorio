@@ -28,4 +28,7 @@
     <string name="authorListText">Авторы:</string>
     <string name="nullPlaceholder">\nУведомления отсутствуют</string>
     <string name="search">Книга, библиотека или автор</string>
+
+    <!-- AUTHOR -->
+    <string name="subscribe">Подписка</string>
 </resources>

@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class Server {
     public static class URLs {
-        public static final String main               = "http://192.168.1.112:5000/";
+        public static final String main               = "http://192.168.56.1:5000/";
 
         //auth
         public static final String login              = String.format("%s/login", main);

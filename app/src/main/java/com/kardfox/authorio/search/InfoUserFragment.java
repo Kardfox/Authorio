@@ -30,14 +30,17 @@ import org.json.JSONObject;
 import java.net.URL;
 
 public class InfoUserFragment extends Fragment {
-    private  final String authorId;
+    private String authorId;
 
     private UserModel author;
     private NotificationModel[] notifications;
 
+    private boolean subscribe;
+
     public InfoUserFragment(String authorId) {
         this.authorId = authorId;
     }
+    InfoUserFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class InfoUserFragment extends Fragment {
                         notification.text = notification.title; break;
                 }
                 NotificationView notificationView = new NotificationView(getContext());
+                notificationView.setData(notification, (view1) -> {});
 
                 View noteV = notificationView.getView();
                 noteV.setPadding(0, 20, 0, 0);
@@ -106,6 +110,7 @@ public class InfoUserFragment extends Fragment {
             author = gson.fromJson(response.response, UserModel[].class)[0];
         }
     }
+
 
     public void loadHistory() {
         Server.Response response = null;
