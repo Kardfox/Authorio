@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class Server {
     public static class URLs {
-        public static final String main               = "http://192.168.56.1:5000/";
+        public static final String main               = "http://192.168.122.1:5000";
 
         //auth
         public static final String login              = String.format("%s/login", main);
@@ -15,7 +15,10 @@ public class Server {
 
         //user
         public static final String love_authors       = "%s/users/get/love_authors/%s";
+        public static final String unsubscribe        = "%s/users/delete/love_author/%s";
+        public static final String subscribe          = "%s/users/add/love_author/%s";
         public static final String get_user           = String.format("%s/users/get", main);
+        public static final String get_lovers         = "%s/users/get/lovers/%s";
 
         //notify
         public static final String notifications_read = "%s/notifications/read/%s";

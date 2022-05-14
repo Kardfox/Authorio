@@ -55,6 +55,6 @@ public class UserModel {
 
     @Override
     public String toString() {
-        return String.format(Locale.getDefault(),"UserDB(id=%d, name=%s, surname=%s, email=%s, token=%s)", id, name, surname, email, token);
+        return String.format(Locale.getDefault(),"User(id=%s, name=%s, surname=%s, email=%s, token=%s)", id, name, surname, email, token);
     }
 }

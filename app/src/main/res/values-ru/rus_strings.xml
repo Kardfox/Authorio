@@ -31,4 +31,5 @@
 
     <!-- AUTHOR -->
     <string name="subscribe">Подписка</string>
+    <string name="unsubscribe">Отписка</string>
 </resources>

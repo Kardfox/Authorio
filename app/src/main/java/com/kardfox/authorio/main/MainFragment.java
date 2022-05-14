@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.MainActivity.Section;
@@ -23,35 +22,48 @@ import com.kardfox.authorio.search.SearchFragment;
 
 public class MainFragment extends Fragment {
     public MainActivity activity = null;
+    View view;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
         activity = (MainActivity) context;
-        LoveAuthorView.LoveAuthor.updateList(activity.GLOBAL_USER);
-        NotificationView.Notification.updateList(activity.GLOBAL_USER);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (view != null) {
+            AuthorView.Author.updateList(activity.GLOBAL_USER);
+            NotificationView.Notification.updateList(activity.GLOBAL_USER);
+
+            loadAuthors();
+            loadNotifications();
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        LinearLayout loveAuthorsContainer = view.findViewById(R.id.loveAuthors);
-        LinearLayout notesContainer = view.findViewById(R.id.notes);
+        view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        loadAuthors(loveAuthorsContainer);
-        loadNotifications(notesContainer);
+        loadAuthors();
+        loadNotifications();
 
         return view;
     }
 
-    public void loadAuthors(LinearLayout container) {
-        if (LoveAuthorView.LoveAuthor.loveAuthors != null) {
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            for (UserModel loveAuthor : LoveAuthorView.LoveAuthor.loveAuthors) {
-                LoveAuthorView loveAuthorView = new LoveAuthorView(getContext());
-                loveAuthorView.setData(loveAuthor.photo, loveAuthor.name);
+    public void loadAuthors() {
+        LinearLayout container = view.findViewById(R.id.loveAuthors);
+        if (AuthorView.Author.authors != null) {
+            container.removeAllViews();
 
-                View loveAuthorV = loveAuthorView.getView();
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            for (UserModel loveAuthor : AuthorView.Author.authors) {
+                AuthorView authorView = new AuthorView(getContext());
+                authorView.setData(loveAuthor.photo, loveAuthor.name);
+
+                View loveAuthorV = authorView.getView();
                 loveAuthorV.setOnClickListener(view -> {
                     InfoUserFragment fInfoUser = new InfoUserFragment(loveAuthor.id);
                     activity.changeFragment(fInfoUser, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
@@ -61,12 +73,15 @@ public class MainFragment extends Fragment {
                 container.addView(loveAuthorV, layoutParams);
             }
         } else {
-            Toast.makeText(getContext(), "Server error", Toast.LENGTH_LONG).show();
+            container.removeAllViews();
         }
     }
 
-    public void loadNotifications(LinearLayout container) {
+    public void loadNotifications() {
+        LinearLayout container = view.findViewById(R.id.notes);
         if (NotificationView.Notification.notifications != null) {
+            container.removeAllViews();
+            
             for (NotificationModel notification : NotificationView.Notification.notifications) {
                 if (notification.object_type == 5) {
                     notification.text = String.format("%s\n%s", notification.title, notification.text);
@@ -86,7 +101,7 @@ public class MainFragment extends Fragment {
             NotificationView.NotificationViewNull viewNull = new NotificationView.NotificationViewNull(getContext(), textForNullView);
             container.addView(viewNull.getView());
         } else {
-            Toast.makeText(getContext(), "Server error", Toast.LENGTH_LONG).show();
+            container.removeAllViews();
         }
     }
 }

@@ -22,12 +22,12 @@ import org.json.JSONObject;
 import java.net.URL;
 
 
-public class LoveAuthorView extends FrameLayout {
+public class AuthorView extends FrameLayout {
     private final View view;
 
-    public LoveAuthorView(Context context) {
+    public AuthorView(Context context) {
         super(context);
-        view = inflate(getContext(), R.layout.love_author_view, null);
+        view = inflate(getContext(), R.layout.author_view, null);
     }
 
     public View getView() {
@@ -43,8 +43,8 @@ public class LoveAuthorView extends FrameLayout {
         authorName.setText(name);
     }
 
-    public static class LoveAuthor {
-        public static UserModel[] loveAuthors;
+    public static class Author {
+        public static UserModel[] authors;
 
         public static void updateList(UserModel user) {
             Server.Response response = null;
@@ -65,9 +65,9 @@ public class LoveAuthorView extends FrameLayout {
             if (response != null && response.code == 200) {
                 Gson gson = new GsonBuilder().create();
 
-                loveAuthors = gson.fromJson(response.response, UserModel[].class);
+                authors = gson.fromJson(response.response, UserModel[].class);
             } else {
-                loveAuthors = null;
+                authors = null;
             }
         }
     }

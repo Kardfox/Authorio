@@ -1,6 +1,5 @@
 package com.kardfox.authorio.search;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,14 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.MainActivity.Section;
 import com.kardfox.authorio.R;
-import com.kardfox.authorio.main.LoveAuthorView;
+import com.kardfox.authorio.main.AuthorView;
 import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.NotificationModel.NotificationTypes;
 import com.kardfox.authorio.models.UserModel;
@@ -87,9 +85,8 @@ public class SearchFragment extends Fragment {
     private UserModel[] loadUsers(String text) {
         Server.Response response = null;
 
-        String name = String.format("%s%%", text.split(" ")[0]);
-        String surname = String.format("%s |", text);
-        surname = String.format("%s%%", surname.split(" ")[1]);
+        String name = String.format("%s%%", text);
+        String surname = String.format("%s%%", text);
 
         try {
             JSONObject json = new JSONObject();
@@ -123,18 +120,19 @@ public class SearchFragment extends Fragment {
         UserModel[] users = loadUsers(text);
         LinearLayout.LayoutParams layoutParamsUsers = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         userContainer.removeAllViews();
-        for (UserModel user : users) {
-            LoveAuthorView loveAuthorView = new LoveAuthorView(getContext());
-            loveAuthorView.setData(user.photo, user.name);
+        if (users != null)
+            for (UserModel user : users) {
+                AuthorView authorView = new AuthorView(getContext());
+                authorView.setData(user.photo, user.name);
 
-            View loveAuthorV = loveAuthorView.getView();
-            loveAuthorV.setOnClickListener(view -> {
-                InfoUserFragment fInfoUser = new InfoUserFragment(user.id);
-                activity.changeFragment(fInfoUser, new int[]{R.anim.slide_right_enter, R.anim.slide_left_exit});
-                activity.setSelected(Section.SEARCH);
-            });
-            loveAuthorV.setPadding(15, 0, 0, 0);
-            userContainer.addView(loveAuthorV, layoutParamsUsers);
-        }
+                View loveAuthorV = authorView.getView();
+                loveAuthorV.setOnClickListener(view -> {
+                    InfoUserFragment fInfoUser = new InfoUserFragment(user.id);
+                    activity.changeFragment(fInfoUser, new int[]{R.anim.slide_right_enter, R.anim.slide_left_exit});
+                    activity.setSelected(Section.SEARCH);
+                });
+                loveAuthorV.setPadding(15, 0, 0, 0);
+                userContainer.addView(loveAuthorV, layoutParamsUsers);
+            }
     }
 }
