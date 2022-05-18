@@ -1,4 +1,4 @@
-package com.kardfox.authorio.main;
+package com.kardfox.authorio.views;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;

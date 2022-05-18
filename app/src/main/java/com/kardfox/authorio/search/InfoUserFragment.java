@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
-import com.kardfox.authorio.main.NotificationView;
+import com.kardfox.authorio.views.NotificationView;
 import com.kardfox.authorio.models.CountLovers;
 import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.UserModel;

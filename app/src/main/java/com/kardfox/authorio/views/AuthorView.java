@@ -1,4 +1,4 @@
-package com.kardfox.authorio.main;
+package com.kardfox.authorio.views;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -27,7 +27,7 @@ public class AuthorView extends FrameLayout {
 
     public AuthorView(Context context) {
         super(context);
-        view = inflate(getContext(), R.layout.author_view, null);
+        view = inflate(context, R.layout.author_view, null);
     }
 
     public View getView() {

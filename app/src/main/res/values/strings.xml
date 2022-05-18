@@ -32,7 +32,7 @@
 
     <!-- SEARCH -->
     <string name="search">Book, library or user</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="subscribe">Subscribe</string>
     <string name="unsubscribe">Unsubscribe</string>
+    <string name="changeProfile">Change</string>
 </resources>

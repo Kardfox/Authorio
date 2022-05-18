@@ -18,7 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.MainActivity.Section;
 import com.kardfox.authorio.R;
-import com.kardfox.authorio.main.AuthorView;
+import com.kardfox.authorio.views.AuthorView;
 import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.NotificationModel.NotificationTypes;
 import com.kardfox.authorio.models.UserModel;

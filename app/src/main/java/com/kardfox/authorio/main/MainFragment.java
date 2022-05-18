@@ -18,6 +18,8 @@ import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.UserModel;
 import com.kardfox.authorio.search.InfoUserFragment;
 import com.kardfox.authorio.search.SearchFragment;
+import com.kardfox.authorio.views.AuthorView;
+import com.kardfox.authorio.views.NotificationView;
 
 
 public class MainFragment extends Fragment {
