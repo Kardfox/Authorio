@@ -29,6 +29,5 @@ public class BookView extends ConstraintLayout {
         authorNameView.setText(authorName);
         bookDescriptionView.setText(bookDescription);
     }
-
     public View getView() { return view; }
 }
