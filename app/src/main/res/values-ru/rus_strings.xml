@@ -1,6 +1,6 @@
 <resources>
     <!-- GENERAL -->
-    <string name="app_name">Уголок</string>
+    <string name="app_name">Authorio</string>
 
     <!-- LOGIN -->
     <string name="namePlaceholder">Имя</string>
@@ -33,4 +33,7 @@
     <string name="subscribe">Подписка</string>
     <string name="unsubscribe">Отписка</string>
     <string name="changeProfile">Изменить</string>
+    <string name="logOut">Выйти</string>
+    <string name="books">Книги</string>
+    <string name="notes">Записки</string>
 </resources>

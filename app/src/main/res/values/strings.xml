@@ -35,4 +35,7 @@
     <string name="subscribe">Subscribe</string>
     <string name="unsubscribe">Unsubscribe</string>
     <string name="changeProfile">Change</string>
+    <string name="logOut">Log out</string>
+    <string name="books">Books</string>
+    <string name="notes">Notes</string>
 </resources>

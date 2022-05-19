@@ -188,6 +188,10 @@ public class InfoUserFragment extends Fragment {
 
                 subscribe = lovers.subscribe > 0;
                 count = lovers.lovers.length;
+                if (count < 100000) {
+                    buttonSubscribe.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    buttonSubscribe.setPadding(0, 0, 5, 0);
+                }
                 buttonSubscribe.setText(getStrCount(count));
             }
         } catch (Exception exception) {

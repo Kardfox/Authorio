@@ -30,7 +30,7 @@
         android:id="@+id/authorNameInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:text="Android"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/cardView2"
@@ -58,7 +58,7 @@
         app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
         app:layout_constraintTop_toBottomOf="@+id/authorDescription"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.066" />
 
     <View
         android:id="@+id/divider5"
@@ -72,18 +72,40 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonChangeProfile"
         app:layout_constraintVertical_bias="0.015" />
 
-    <ScrollView
+    <Button
+        android:id="@+id/buttonLogOut"
+        android:layout_width="87dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:backgroundTint="@color/second_pink"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:text="@string/logOut"
+        app:layout_constraintBottom_toBottomOf="@+id/authorNameInfo"
+        app:layout_constraintStart_toEndOf="@+id/authorNameInfo"
+        app:layout_constraintTop_toTopOf="@+id/authorNameInfo"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
-        android:layout_height="561dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider5">
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:text="@string/books">
+
+            <androidx.fragment.app.FragmentContainerView
+                tools:layout="@layout/books_list"/>
+
+        </com.google.android.material.tabs.TabItem>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notes"/>
+    </com.google.android.material.tabs.TabLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
