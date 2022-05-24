@@ -87,6 +87,7 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,17 +96,22 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/books">
-
-            <androidx.fragment.app.FragmentContainerView
-                tools:layout="@layout/books_list"/>
-
-        </com.google.android.material.tabs.TabItem>
+            android:text="@string/books" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/notes"/>
+            android:text="@string/notes" />
     </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/itemsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

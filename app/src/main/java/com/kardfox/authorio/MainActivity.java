@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         fMain = new MainFragment();
         fSearch = new SearchFragment();
-        fWrite = new WriteFragment();
+        fWrite = new WriteFragment(this);
 
         UserDB readDB = new UserDB("User.db", getApplicationContext());
         db = readDB.getReadableDatabase();
@@ -96,17 +96,11 @@ public class MainActivity extends AppCompatActivity {
         fTransaction.add(R.id.fragmentContainer, fMain, "switch");
         fTransaction.commit();
 
-        toMain.setOnClickListener(view -> {
-            switchTo(Section.MAIN);
-        });
+        toMain.setOnClickListener(view -> switchTo(Section.MAIN));
 
-        toSearch.setOnClickListener(view -> {
-            switchTo(Section.SEARCH);
-        });
+        toSearch.setOnClickListener(view -> switchTo(Section.SEARCH));
 
-        toWrite.setOnClickListener(view -> {
-            switchTo(Section.WRITE);
-        });
+        toWrite.setOnClickListener(view -> switchTo(Section.WRITE));
     }
 
     public void changeFragment(Fragment newFragment, int[] enter_exit) {

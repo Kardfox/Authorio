@@ -182,6 +182,7 @@ public class InfoUserFragment extends Fragment {
                 CountLovers lovers = gson.fromJson(response.response, CountLovers.class);
 
                 if (lovers.mirror == 1) {
+                    ((MainActivity) getActivity()).switchTo(MainActivity.Section.WRITE);
                     buttonSubscribe.setBackgroundColor(view.getContext().getColor(R.color.gray));
                     buttonSubscribe.setEnabled(false);
                 }

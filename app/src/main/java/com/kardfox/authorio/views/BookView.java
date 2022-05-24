@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.kardfox.authorio.R;
+import com.kardfox.authorio.models.BookModel;
 
 public class BookView extends ConstraintLayout {
     private final View view;
@@ -20,12 +21,12 @@ public class BookView extends ConstraintLayout {
         view = inflate(context, R.layout.book_view, null);
     }
 
-    public void setData(String bookName, String authorName, String bookDescription) {
+    public void setData(BookModel book) {
         TextView bookNameView = view.findViewById(R.id.bookName);
         TextView authorNameView = view.findViewById(R.id.authorNameView);
         TextView bookDescriptionView = view.findViewById(R.id.bookDescription);
 
-        bookNameView.setText(bookName);
+        bookNameView.setText(book.title);
         authorNameView.setText(authorName);
         bookDescriptionView.setText(bookDescription);
     }

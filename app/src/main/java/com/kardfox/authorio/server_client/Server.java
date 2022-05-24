@@ -13,6 +13,9 @@ public class Server {
         public static final String signup             = String.format("%s/signup", main);
         public static final String logout             = String.format("%s/logout", main);
 
+        //bok
+        public static final String books_get          = String.format("%s/books/get", main);
+
         //user
         public static final String love_authors       = "%s/users/get/love_authors/%s";
         public static final String unsubscribe        = "%s/users/delete/love_author/%s";
