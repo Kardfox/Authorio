@@ -28,6 +28,8 @@ import com.kardfox.authorio.views.NoteView;
 import com.kardfox.authorio.models.CountLovers;
 import com.kardfox.authorio.models.UserModel;
 
+import com.kardfox.authorio.server_client.Server.Response;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,9 +53,9 @@ public class InfoUserFragment extends Fragment {
                 JSONObject json = new JSONObject();
                 json.put("user_id", user_id);
 
-                String response = activity.request(json, activity.URLs.books_get);
+                Response response = activity.request(json, activity.URLs.books_get);
                 if (response == null) return null;
-                books = activity.gson.fromJson(response, BookModel[].class);
+                books = activity.gson.fromJson(response.response, BookModel[].class);
             } catch (JSONException ignored) {}
 
             View view = inflater.inflate(R.layout.books_list, container, false);
@@ -89,9 +91,9 @@ public class InfoUserFragment extends Fragment {
                 JSONObject json = new JSONObject();
                 json.put("user_id", user_id);
 
-                String response = activity.request(json, activity.URLs.notes_get);
+                Response response = activity.request(json, activity.URLs.notes_get);
                 if (response == null) return null;
-                notes = activity.gson.fromJson(response, NoteModel[].class);
+                notes = activity.gson.fromJson(response.response, NoteModel[].class);
             } catch (JSONException ignored) {}
 
             View view = inflater.inflate(R.layout.notes_list, container, false);
@@ -204,7 +206,7 @@ public class InfoUserFragment extends Fragment {
 
                 buttonSubscribe.setText(getStrCount(++count));
             } catch (Exception exception) {
-                Log.e(MainActivity.LOG_TAG, exception.getMessage());
+                Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());
             }
         }
 
@@ -241,13 +243,13 @@ public class InfoUserFragment extends Fragment {
             JSONObject json = new JSONObject();
             json.put("id", authorId);
 
-            String response = activity.request(json, activity.URLs.get_user);
+            Response response = activity.request(json, activity.URLs.get_user);
             if (response == null) return;
-            author = activity.gson.fromJson(response, UserModel[].class)[0];
+            author = activity.gson.fromJson(response.response, UserModel[].class)[0];
 
             response = activity.request(json, activity.URLs.get_lovers);
 
-            CountLovers lovers = activity.gson.fromJson(response, CountLovers.class);
+            CountLovers lovers = activity.gson.fromJson(response.response, CountLovers.class);
 
             if (lovers.mirror == 1) {
                 activity.switchTo(MainActivity.Section.WRITE);

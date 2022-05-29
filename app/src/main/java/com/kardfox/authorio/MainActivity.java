@@ -59,22 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
     public int selected;
 
-    public Server.URLs URLs;
+    public Server.URLs URLs = new Server.URLs();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-
-        fManager = getSupportFragmentManager();
-
-        fLogIn = new LogInFragment();
-        fSignUp = new SignUpFragment();
-
-        fMain = new MainFragment();
-        fSearch = new SearchFragment(this);
-        fWrite = new WriteFragment(this);
 
         UserDB readDB = new UserDB("User.db", getApplicationContext());
         db = readDB.getReadableDatabase();
@@ -98,7 +89,16 @@ public class MainActivity extends AppCompatActivity {
 
         GLOBAL_USER = UserModel.get(db);
 
-        URLs = new Server.URLs(GLOBAL_USER.token);
+        fManager = getSupportFragmentManager();
+
+        fLogIn = new LogInFragment();
+        fSignUp = new SignUpFragment();
+
+        fMain = new MainFragment();
+        fSearch = new SearchFragment(this);
+        fWrite = new WriteFragment(this);
+
+        URLs.setUrls(GLOBAL_USER.token);
 
         selected = 0;
 
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         Section(int section) {}
     }
 
-    public String request(JSONObject json, String strUrl) {
+    public Server.Response request(JSONObject json, String strUrl) {
         Server.Response response = null;
 
         try {
@@ -191,11 +191,11 @@ public class MainActivity extends AppCompatActivity {
 
             response = post.get();
         } catch (Exception exception) {
-            Log.e(MainActivity.LOG_TAG, exception.getMessage());
+            Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());
         }
 
         if (response != null && response.code == 200) {
-            return response.response;
+            return response;
         } else if (response != null && response.code == 500) {
             Toast.makeText(this, "Server error", Toast.LENGTH_LONG).show();
             setNotConnection();

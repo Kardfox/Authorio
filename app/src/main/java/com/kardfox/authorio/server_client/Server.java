@@ -8,31 +8,30 @@ import java.util.Locale;
 
 public class Server {
     public static class URLs {
-        public final String main               = "http://192.168.1.112:5000";
+        public final String main = "http://192.168.1.112:5000";
 
         //auth
-        public final String login              = String.format("%s/login", main);
-        public final String signup             = String.format("%s/signup", main);
-        public final String logout             = String.format("%s/logout", main);
+        public final String login  = String.format("%s/login", main);
+        public final String signup = String.format("%s/signup", main);
+        public final String logout = String.format("%s/logout", main);
 
         //book
-        public final String books_get          = String.format("%s/books/get", main);
+        public final String books_get = String.format("%s/books/get", main);
 
         //notes
-        public final String notes_get          = String.format("%s/notes/get", main);
+        public final String notes_get = String.format("%s/notes/get", main);
 
         //user
-        public final String love_authors;
-        public final String unsubscribe;
-        public final String subscribe;
-        public final String get_user = String.format("%s/users/get", main);
-        public final String get_lovers;
+        public String love_authors;
+        public String unsubscribe;
+        public String subscribe;
+        public String get_user = String.format("%s/users/get", main);
+        public String get_lovers;
 
         //notify
-        public final String notifications_read;
-        public final String notifications_long = String.format("%s/notifications/long/get", main);
+        public String notifications_read;
 
-        public URLs(String token) {
+        public void setUrls(String token) {
             love_authors = String.format("%s/users/get/love_authors/%s", main, token);
             unsubscribe = String.format("%s/users/delete/love_author/%s", main, token);
             get_lovers = String.format("%s/users/get/lovers/%s", main, token);

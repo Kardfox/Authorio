@@ -57,13 +57,13 @@ public class NotificationView extends ConstraintLayout {
     public static class Notification {
         public static NotificationModel[] notifications = null;
 
-        public static void updateList(UserModel user) {
+        public static void updateList(UserModel user, MainActivity activity) {
             try {
-                String response = activity.request(new JSONObject(), NotificationView.activity.URLs.notifications_read);
+                Server.Response response = activity.request(new JSONObject(), NotificationView.activity.URLs.notifications_read);
                 if (response == null) return;
-                notifications = activity.gson.fromJson(response, NotificationModel[].class);
+                notifications = activity.gson.fromJson(response.response, NotificationModel[].class);
             } catch (Exception exception) {
-                Log.e(MainActivity.LOG_TAG, exception.getMessage());
+                Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());
             }
         }
     }

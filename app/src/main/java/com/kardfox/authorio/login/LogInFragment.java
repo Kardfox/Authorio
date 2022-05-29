@@ -1,6 +1,5 @@
 package com.kardfox.authorio.login;
 
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,8 +17,7 @@ import com.google.gson.GsonBuilder;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
 import com.kardfox.authorio.models.UserModel;
-import com.kardfox.authorio.server_client.Client;
-import com.kardfox.authorio.server_client.Server;
+import com.kardfox.authorio.server_client.Server.Response;
 
 import org.json.JSONObject;
 
@@ -54,67 +52,62 @@ public class LogInFragment extends Fragment {
         Button buttonLogIn = view.findViewById(R.id.buttonLogIn);
         Button buttonSwitchToSignUp = view.findViewById(R.id.buttonSwitchToSignUp);
 
-        Resources resources = getResources();
+        buttonLogIn.setOnClickListener(view1 -> {
+            textEmailError.setText("");
+            textPasswordError.setText("");
 
-        buttonLogIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textEmailError.setText("");
-                textPasswordError.setText("");
+            String email = editEmail.getText().toString();
+            String password = editPassword.getText().toString();
 
-                String email = editEmail.getText().toString();
-                String password = editPassword.getText().toString();
+            if (password.length() < 8) {
+                textPasswordError.setText(R.string.shortPassword);
+                return;
+            }
 
-                if (password.length() < 8) {
-                    textPasswordError.setText(R.string.shortPassword);
+            if (email.length() > 0) {
+                Pattern pattern = Pattern.compile("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
+                Matcher matcher = pattern.matcher(email);
+
+                if (!matcher.matches()) {
+                    textEmailError.setText(R.string.invalidEmail);
                     return;
                 }
+            } else {
+                textEmailError.setText(R.string.emailIsEmpty);
+                return;
+            }
 
-                if (email.length() > 0) {
-                    Pattern pattern = Pattern.compile("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
-                    Matcher matcher = pattern.matcher(email);
+            JSONObject json = new JSONObject();
+            try {
+                json.put("email", email);
+                json.put("device", Build.MODEL);
+                json.put("password", password);
 
-                    if (!matcher.matches()) {
-                        textEmailError.setText(R.string.invalidEmail);
-                        return;
+                Response response = activity.request(json, activity.URLs.login);
+
+                if (response != null) {
+                    switch (response.code) {
+                        case 200:
+                            GsonBuilder builder = new GsonBuilder();
+                            Gson gson = builder.create();
+
+                            UserModel user = gson.fromJson(response.response, UserModel.class);
+                            activity.saveUser(user);
+                            break;
+                        case 403:
+                            textPasswordError.setText(R.string.wrongPassword);
+                            break;
+                        case 404:
+                            textEmailError.setText(R.string.userNotFound);
+                            break;
+                        default:
+                            textEmailError.setText(R.string.serverError);
                     }
                 } else {
-                    textEmailError.setText(R.string.emailIsEmpty);
-                    return;
+                    throw new Exception();
                 }
-
-                JSONObject json = new JSONObject();
-                try {
-                    json.put("email", email);
-                    json.put("device", Build.MODEL);
-                    json.put("password", password);
-
-                    Server.Response response = login(json);
-
-                    if (response != null) {
-                        switch (response.code) {
-                            case 200:
-                                GsonBuilder builder = new GsonBuilder();
-                                Gson gson = builder.create();
-
-                                UserModel user = gson.fromJson(response.response, UserModel.class);
-                                activity.saveUser(user);
-                                break;
-                            case 403:
-                                textPasswordError.setText(R.string.wrongPassword);
-                                break;
-                            case 404:
-                                textEmailError.setText(R.string.userNotFound);
-                                break;
-                            default:
-                                textEmailError.setText(R.string.serverError);
-                        }
-                    } else {
-                        throw new Exception();
-                    }
-                 } catch (Exception exception) {
-                    textEmailError.setText(R.string.appError);
-                }
+             } catch (Exception exception) {
+                textEmailError.setText(R.string.appError);
             }
         });
 
@@ -127,19 +120,5 @@ public class LogInFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private Server.Response login(JSONObject json) {
-        Server.Response response = null;
-        try {
-            Client.Post post = new Client.Post(new URL(Server.URLs.login), json);
-            post.execute();
-
-            response = post.get();
-        } catch (Exception exception) {
-            textEmailError.setText(R.string.appError);
-        }
-
-        return response;
     }
 }

@@ -96,12 +96,12 @@ public class SearchFragment extends Fragment {
             json.put("name", name);
             json.put("surname", surname);
 
-            String response = activity.request(json, activity.URLs.get_user);
+            Server.Response response = activity.request(json, activity.URLs.get_user);
             if (response == null) return null;
 
-            return activity.gson.fromJson(response, UserModel[].class);
+            return activity.gson.fromJson(response.response, UserModel[].class);
         } catch (Exception exception) {
-            Log.e(MainActivity.LOG_TAG, exception.getMessage());
+            Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());
         }
         return null;
     }

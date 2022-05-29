@@ -24,12 +24,10 @@ import java.net.URL;
 
 public class AuthorView extends FrameLayout {
     private final View view;
-    public static MainActivity activity;
 
     public AuthorView(Context context) {
         super(context);
         view = inflate(context, R.layout.author_view, null);
-        activity = (MainActivity) context;
     }
 
     public View getView() {
@@ -48,16 +46,16 @@ public class AuthorView extends FrameLayout {
     public static class Author {
         public static UserModel[] authors = null;
 
-        public static void updateList(UserModel user) {
+        public static void updateList(UserModel user, MainActivity activity) {
             try {
                 JSONObject json = new JSONObject();
                 json.put("user_id", user.id);
 
-                String response = activity.request(json, activity.URLs.love_authors);
+                Server.Response response = activity.request(json, activity.URLs.love_authors);
                 if (response == null) return;
-                authors = activity.gson.fromJson(response, UserModel[].class);
+                authors = activity.gson.fromJson(response.response, UserModel[].class);
             } catch (Exception exception) {
-                Log.e(MainActivity.LOG_TAG, exception.getMessage());
+                Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());
             }
         }
     }

@@ -1,8 +1,6 @@
 package com.kardfox.authorio.login;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -18,13 +16,10 @@ import android.widget.TextView;
 
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
-import com.kardfox.authorio.models.UserModel;
-import com.kardfox.authorio.server_client.Client;
-import com.kardfox.authorio.server_client.Server;
+import com.kardfox.authorio.server_client.Server.Response;
 
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -104,7 +99,7 @@ public class SignUpFragment extends Fragment {
                     json.put("email", email);
                     json.put("password", password);
 
-                    Server.Response response = signUp(json);
+                    Response response = activity.request(json, activity.URLs.signup);
 
                     if (response != null)
                         switch (response.code) {
@@ -113,7 +108,7 @@ public class SignUpFragment extends Fragment {
                                 json.put("surname", null);
                                 json.put("device", Build.MODEL);
 
-                                login(json);
+                                activity.request(json, activity.URLs.login);
                                 break;
                             case 403:
                                 textEmailError.setText(R.string.emailIsExists);
@@ -129,52 +124,11 @@ public class SignUpFragment extends Fragment {
         });
 
         Button buttonSwitchToLogIn = view.findViewById(R.id.buttonSwitchToLogIn);
-        buttonSwitchToLogIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int[] anim = {R.anim.slide_left_enter, R.anim.slide_right_exit};
-                activity.changeFragment(activity.fLogIn, anim);
-            }
+        buttonSwitchToLogIn.setOnClickListener(view1 -> {
+            int[] anim = {R.anim.slide_left_enter, R.anim.slide_right_exit};
+            activity.changeFragment(activity.fLogIn, anim);
         });
 
         return view;
-    }
-
-    private Server.Response signUp(JSONObject json) {
-        Server.Response response = null;
-        try {
-            Client.Post post = new Client.Post(new URL(Server.URLs.signup), json);
-            post.execute();
-
-            response = post.get();
-
-        } catch (Exception exception) {
-            textNameError.setText(R.string.appError);
-        }
-
-        return response;
-    }
-
-    private void login(JSONObject json) {
-        try {
-            Client.Post post = new Client.Post(new URL(Server.URLs.login), json);
-            post.execute();
-
-            Server.Response response = post.get();
-
-            if (response.code == 200) {
-                GsonBuilder builder = new GsonBuilder();
-                Gson gson = builder.create();
-
-                UserModel user = gson.fromJson(response.response, UserModel.class);
-
-                activity.saveUser(user);
-            } else {
-                textEmailError.setText(R.string.serverError);
-            }
-
-        } catch (Exception exception) {
-            textNameError.setText(R.string.appError);
-        }
     }
 }

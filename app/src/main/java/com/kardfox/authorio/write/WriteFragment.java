@@ -21,6 +21,7 @@ import com.kardfox.authorio.R;
 
 import com.kardfox.authorio.models.CountLovers;
 import com.kardfox.authorio.search.InfoUserFragment;
+import com.kardfox.authorio.server_client.Server.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,10 +55,10 @@ public class WriteFragment extends Fragment {
         try {
             json.put("id", activity.GLOBAL_USER.id);
         } catch (JSONException ignored) {}
-        String response = activity.request(json, activity.URLs.get_lovers);
+        Response response = activity.request(json, activity.URLs.get_lovers);
         if (response == null) return null;
 
-        CountLovers countLovers = activity.gson.fromJson(response, CountLovers.class);
+        CountLovers countLovers = activity.gson.fromJson(response.response, CountLovers.class);
         loversCount.setText(String.format("%s %s", InfoUserFragment.getStrCount(countLovers.lovers.length), getString(R.string.lovers)));
 
         ImageView authorPhoto = view.findViewById(R.id.authorPhoto);

@@ -37,8 +37,8 @@ public class MainFragment extends Fragment {
         super.onStart();
 
         if (view != null) {
-            AuthorView.Author.updateList(activity.GLOBAL_USER);
-            NotificationView.Notification.updateList(activity.GLOBAL_USER);
+            AuthorView.Author.updateList(activity.GLOBAL_USER, activity);
+            NotificationView.Notification.updateList(activity.GLOBAL_USER, activity);
 
             loadAuthors();
             loadNotifications();
