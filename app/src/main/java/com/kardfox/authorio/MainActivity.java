@@ -25,8 +25,6 @@ import com.kardfox.authorio.bd.UserDB;
 import com.kardfox.authorio.login.LogInFragment;
 import com.kardfox.authorio.login.SignUpFragment;
 import com.kardfox.authorio.main.MainFragment;
-import com.kardfox.authorio.models.Model;
-import com.kardfox.authorio.models.NoteModel;
 import com.kardfox.authorio.models.UserModel;
 import com.kardfox.authorio.search.SearchFragment;
 import com.kardfox.authorio.server_client.Client;
@@ -60,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton toWrite;
 
     public int selected;
+
+    public Server.URLs URLs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         GLOBAL_USER = UserModel.get(db);
+
+        URLs = new Server.URLs(GLOBAL_USER.token);
 
         selected = 0;
 

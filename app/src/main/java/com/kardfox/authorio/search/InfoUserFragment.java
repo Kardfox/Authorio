@@ -19,61 +19,42 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
 import com.kardfox.authorio.models.BookModel;
 import com.kardfox.authorio.models.NoteModel;
 import com.kardfox.authorio.views.BookView;
 import com.kardfox.authorio.views.NoteView;
-import com.kardfox.authorio.views.NotificationView;
 import com.kardfox.authorio.models.CountLovers;
-import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.UserModel;
-import com.kardfox.authorio.server_client.Client;
-import com.kardfox.authorio.server_client.Server;
-import com.kardfox.authorio.write.WriteFragment;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.Locale;
 
 public class InfoUserFragment extends Fragment {
     public static class BookList extends Fragment {
         String user_id;
+        MainActivity activity;
 
-        public BookList(String user_id) {
+        public BookList(String user_id, MainActivity activity) {
             this.user_id = user_id;
+            this.activity = activity;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            Server.Response response = null;
-
+            BookModel[] books = null;
             try {
                 JSONObject json = new JSONObject();
-
                 json.put("user_id", user_id);
 
-                URL url = new URL(Server.URLs.books_get);
-                Client.Post post = new Client.Post(url, json);
-                post.execute();
-
-                response = post.get();
-            } catch (Exception exception) {
-                Log.e(MainActivity.LOG_TAG, exception.getMessage());
-            }
-
-            BookModel[] books;
-            if (response != null && response.code == 200) {
-                Gson gson = new GsonBuilder().create();
-                books = gson.fromJson(response.response, BookModel[].class);
-            } else {
-                books = null;
-            }
+                String response = activity.request(json, activity.URLs.books_get);
+                if (response == null) return null;
+                books = activity.gson.fromJson(response, BookModel[].class);
+            } catch (JSONException ignored) {}
 
             View view = inflater.inflate(R.layout.books_list, container, false);
             LinearLayout booksList = view.findViewById(R.id.booksList);
@@ -81,7 +62,7 @@ public class InfoUserFragment extends Fragment {
             if (books != null) {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 for (BookModel book: books) {
-                    BookView bookView = new BookView(getContext());
+                    BookView bookView = new BookView(activity);
                     bookView.setData(book);
                     booksList.addView(bookView.getView(), layoutParams);
                 }
@@ -93,37 +74,25 @@ public class InfoUserFragment extends Fragment {
 
     public static class NotesList extends Fragment {
         String user_id;
+        MainActivity activity;
 
-        public NotesList(String user_id) {
+        public NotesList(String user_id, MainActivity activity) {
             this.user_id = user_id;
+            this.activity = activity;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            Server.Response response = null;
-
+            NoteModel[] notes = null;
             try {
                 JSONObject json = new JSONObject();
-
                 json.put("user_id", user_id);
 
-                URL url = new URL(Server.URLs.notes_get);
-                Client.Post post = new Client.Post(url, json);
-                post.execute();
-
-                response = post.get();
-            } catch (Exception exception) {
-                Log.e(MainActivity.LOG_TAG, exception.getMessage());
-            }
-
-            NoteModel[] notes;
-            if (response != null && response.code == 200) {
-                Gson gson = new GsonBuilder().create();
-                notes = gson.fromJson(response.response, NoteModel[].class);
-            } else {
-                notes = null;
-            }
+                String response = activity.request(json, activity.URLs.notes_get);
+                if (response == null) return null;
+                notes = activity.gson.fromJson(response, NoteModel[].class);
+            } catch (JSONException ignored) {}
 
             View view = inflater.inflate(R.layout.notes_list, container, false);
             LinearLayout notesList = view.findViewById(R.id.notesList);
@@ -195,8 +164,8 @@ public class InfoUserFragment extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         FragmentManager fManager = activity.getSupportFragmentManager();
 
-        WriteFragment.BookList bookList = new WriteFragment.BookList(authorId);
-        WriteFragment.NotesList notesList = new WriteFragment.NotesList(authorId);
+        BookList bookList = new BookList(authorId, activity);
+        NotesList notesList = new NotesList(authorId, activity);
 
         FragmentTransaction fTransaction = fManager.beginTransaction();
         fTransaction.add(R.id.itemsContainer, bookList, "switch");
@@ -231,9 +200,7 @@ public class InfoUserFragment extends Fragment {
                 JSONObject json = new JSONObject();
                 json.put("author_id", authorId);
 
-                URL url = new URL(String.format(Server.URLs.subscribe, Server.URLs.main, userToken));
-                Client.Post post = new Client.Post(url, json);
-                post.execute();
+                activity.request(json, activity.URLs.subscribe);
 
                 buttonSubscribe.setText(getStrCount(++count));
             } catch (Exception exception) {
@@ -252,9 +219,7 @@ public class InfoUserFragment extends Fragment {
                 JSONObject json = new JSONObject();
                 json.put("author_id", authorId);
 
-                URL url = new URL(String.format(Server.URLs.unsubscribe, Server.URLs.main, userToken));
-                Client.Post post = new Client.Post(url, json);
-                post.execute();
+                activity.request(json, activity.URLs.unsubscribe);
 
                 buttonSubscribe.setText(getStrCount(--count));
             } catch (Exception exception) {
@@ -272,44 +237,32 @@ public class InfoUserFragment extends Fragment {
     }
 
     public void loadInfo() {
-        Server.Response response = null;
-
         try {
             JSONObject json = new JSONObject();
-            Gson gson = new GsonBuilder().create();
             json.put("id", authorId);
 
-            URL url = new URL(Server.URLs.get_user);
-            Client.Post post = new Client.Post(url, json);
-            post.execute();
+            String response = activity.request(json, activity.URLs.get_user);
+            if (response == null) return;
+            author = activity.gson.fromJson(response, UserModel[].class)[0];
 
-            response = post.get();
-            if (response != null && response.code == 200) {
-                author = gson.fromJson(response.response, UserModel[].class)[0];
+            response = activity.request(json, activity.URLs.get_lovers);
+
+            CountLovers lovers = activity.gson.fromJson(response, CountLovers.class);
+
+            if (lovers.mirror == 1) {
+                activity.switchTo(MainActivity.Section.WRITE);
+                buttonSubscribe.setBackgroundColor(view.getContext().getColor(R.color.gray));
+                buttonSubscribe.setEnabled(false);
             }
 
-            url = new URL(String.format(Server.URLs.get_lovers, Server.URLs.main, userToken));
-            post = new Client.Post(url, json);
-            post.execute();
-
-            response = post.get();
-            if (response != null && response.code == 200) {
-                CountLovers lovers = gson.fromJson(response.response, CountLovers.class);
-
-                if (lovers.mirror == 1) {
-                    ((MainActivity) getActivity()).switchTo(MainActivity.Section.WRITE);
-                    buttonSubscribe.setBackgroundColor(view.getContext().getColor(R.color.gray));
-                    buttonSubscribe.setEnabled(false);
-                }
-
-                subscribe = lovers.subscribe > 0;
-                count = lovers.lovers.length;
-                if (count < 100000) {
-                    buttonSubscribe.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    buttonSubscribe.setPadding(0, 0, 5, 0);
-                }
-                buttonSubscribe.setText(getStrCount(count));
+            subscribe = lovers.subscribe > 0;
+            count = lovers.lovers.length;
+            if (count < 100000) {
+                buttonSubscribe.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                buttonSubscribe.setPadding(0, 0, 5, 0);
             }
+            buttonSubscribe.setText(getStrCount(count));
+
         } catch (Exception exception) {
             Log.e(MainActivity.LOG_TAG, exception.getMessage());
         }

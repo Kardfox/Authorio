@@ -28,10 +28,12 @@ import java.net.URL;
 
 public class NotificationView extends ConstraintLayout {
     private final View view;
+    public static MainActivity activity;
 
     public NotificationView(Context context) {
         super(context);
-        view = inflate(getContext(), R.layout.notification_view, null);
+        view = inflate(context, R.layout.notification_view, null);
+        activity = (MainActivity) context;
     }
 
     public void setData(NotificationModel notificationModel, OnClickListener listener) {
@@ -53,28 +55,15 @@ public class NotificationView extends ConstraintLayout {
     public View getView() { return view; }
 
     public static class Notification {
-        public static NotificationModel[] notifications;
+        public static NotificationModel[] notifications = null;
 
         public static void updateList(UserModel user) {
-            Server.Response response = null;
-
             try {
-                JSONObject json = new JSONObject();
-
-                URL url = new URL(String.format(Server.URLs.notifications_read, Server.URLs.main, user.token));
-                Client.Post post = new Client.Post(url, json);
-                post.execute();
-
-                response = post.get();
+                String response = activity.request(new JSONObject(), NotificationView.activity.URLs.notifications_read);
+                if (response == null) return;
+                notifications = activity.gson.fromJson(response, NotificationModel[].class);
             } catch (Exception exception) {
                 Log.e(MainActivity.LOG_TAG, exception.getMessage());
-            }
-
-            if (response != null && response.code == 200) {
-                Gson gson = new GsonBuilder().create();
-                notifications = gson.fromJson(response.response, NotificationModel[].class);
-            } else {
-                notifications = null;
             }
         }
     }

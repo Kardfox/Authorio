@@ -88,8 +88,6 @@ public class SearchFragment extends Fragment {
     }
 
     private UserModel[] loadUsers(String text) {
-        Server.Response response = null;
-
         String name = String.format("%s%%", text);
         String surname = String.format("%s%%", text);
 
@@ -98,22 +96,14 @@ public class SearchFragment extends Fragment {
             json.put("name", name);
             json.put("surname", surname);
 
-            URL url = new URL(Server.URLs.get_user);
-            Client.Post post = new Client.Post(url, json);
-            post.execute();
+            String response = activity.request(json, activity.URLs.get_user);
+            if (response == null) return null;
 
-            response = post.get();
+            return activity.gson.fromJson(response, UserModel[].class);
         } catch (Exception exception) {
             Log.e(MainActivity.LOG_TAG, exception.getMessage());
         }
-
-        if (response != null && response.code == 200) {
-            Gson gson = new GsonBuilder().create();
-
-            return gson.fromJson(response.response, UserModel[].class);
-        } else {
-            return null;
-        }
+        return null;
     }
 
     private void search(String text) {
