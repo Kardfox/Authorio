@@ -2,19 +2,24 @@ package com.kardfox.authorio.server_client;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONObject;
+
 import java.util.Locale;
 
 public class Server {
     public static class URLs {
-        public static final String main               = "http://192.168.122.1:5000";
+        public static final String main               = "http://192.168.1.112:5000";
 
         //auth
         public static final String login              = String.format("%s/login", main);
         public static final String signup             = String.format("%s/signup", main);
         public static final String logout             = String.format("%s/logout", main);
 
-        //bok
+        //book
         public static final String books_get          = String.format("%s/books/get", main);
+
+        //notes
+        public static final String notes_get          = String.format("%s/notes/get", main);
 
         //user
         public static final String love_authors       = "%s/users/get/love_authors/%s";

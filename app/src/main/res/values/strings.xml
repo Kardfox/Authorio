@@ -29,6 +29,7 @@
     <!-- MAIN -->
     <string name="authorListText">Authors:</string>
     <string name="nullPlaceholder">\nNo notifications</string>
+    <string name="lostConnection">We are lost connection...\nSorryyy</string>
 
     <!-- SEARCH -->
     <string name="search">Book, library or user</string>
@@ -38,4 +39,7 @@
     <string name="logOut">Log out</string>
     <string name="books">Books</string>
     <string name="notes">Notes</string>
+
+    <!-- INFO -->
+    <string name="lovers">lovers</string>
 </resources>

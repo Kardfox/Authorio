@@ -31,8 +31,13 @@ import java.net.URL;
 
 public class SearchFragment extends Fragment {
     LinearLayout userContainer = null;
-    public SearchFragment() {
-        // Required empty public constructor
+
+    public SearchFragment() { }
+
+    MainActivity activity;
+
+    public SearchFragment(MainActivity activity) {
+        this.activity = activity;
     }
 
     public static void showNotificationObject(MainActivity activity, NotificationModel notification) {
@@ -43,7 +48,7 @@ public class SearchFragment extends Fragment {
         } else if (notification.object_type == NotificationTypes.NEW_CHAPTER.intType) {
             // TODO: make new_chapter
         } else if (notification.object_type == NotificationTypes.NEW_LOVER.intType) {
-            InfoUserFragment infoUserFragment = new InfoUserFragment(notification.object_id);
+            InfoUserFragment infoUserFragment = new InfoUserFragment(activity, notification.object_id);
 
             activity.setSelected(Section.SEARCH);
             activity.changeFragment(infoUserFragment, new int[]{R.anim.slide_right_enter, R.anim.slide_left_exit});
@@ -112,7 +117,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void search(String text) {
-        MainActivity activity = (MainActivity) getActivity();
         if (text.equals("")) {
             userContainer.removeAllViews();
             return;
@@ -127,7 +131,7 @@ public class SearchFragment extends Fragment {
 
                 View loveAuthorV = authorView.getView();
                 loveAuthorV.setOnClickListener(view -> {
-                    InfoUserFragment fInfoUser = new InfoUserFragment(user.id);
+                    InfoUserFragment fInfoUser = new InfoUserFragment(activity, user.id);
                     activity.changeFragment(fInfoUser, new int[]{R.anim.slide_right_enter, R.anim.slide_left_exit});
                     activity.setSelected(Section.SEARCH);
                 });

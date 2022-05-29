@@ -67,7 +67,7 @@ public class MainFragment extends Fragment {
 
                 View loveAuthorV = authorView.getView();
                 loveAuthorV.setOnClickListener(view -> {
-                    InfoUserFragment fInfoUser = new InfoUserFragment(loveAuthor.id);
+                    InfoUserFragment fInfoUser = new InfoUserFragment(activity, loveAuthor.id);
                     activity.changeFragment(fInfoUser, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
                     activity.setSelected(Section.SEARCH);
                 });

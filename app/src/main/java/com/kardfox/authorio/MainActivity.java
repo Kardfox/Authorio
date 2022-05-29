@@ -17,18 +17,30 @@ import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kardfox.authorio.bd.UserDB;
 import com.kardfox.authorio.login.LogInFragment;
 import com.kardfox.authorio.login.SignUpFragment;
 import com.kardfox.authorio.main.MainFragment;
+import com.kardfox.authorio.models.Model;
+import com.kardfox.authorio.models.NoteModel;
 import com.kardfox.authorio.models.UserModel;
 import com.kardfox.authorio.search.SearchFragment;
+import com.kardfox.authorio.server_client.Client;
+import com.kardfox.authorio.server_client.Server;
 import com.kardfox.authorio.write.WriteFragment;
+
+import org.json.JSONObject;
+
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     public static final String LOG_TAG = "Authorio";
-    public final String LOG_TAG_MAIN = "Authorio";
+
+    public Gson gson = new GsonBuilder().create();
 
     public UserModel GLOBAL_USER;
 
@@ -61,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         fSignUp = new SignUpFragment();
 
         fMain = new MainFragment();
-        fSearch = new SearchFragment();
+        fSearch = new SearchFragment(this);
         fWrite = new WriteFragment(this);
 
         UserDB readDB = new UserDB("User.db", getApplicationContext());
@@ -106,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragment(Fragment newFragment, int[] enter_exit) {
         FragmentTransaction fTransaction = fManager.beginTransaction();
 
-        Log.i(this.LOG_TAG_MAIN, "Switching!");
+        Log.i(MainActivity.LOG_TAG, "Switching!");
 
         fTransaction.setCustomAnimations(enter_exit[0], enter_exit[1]);
         fTransaction.replace(R.id.fragmentContainer, newFragment, "switch");
@@ -165,5 +177,31 @@ public class MainActivity extends AppCompatActivity {
         WRITE(2);
 
         Section(int section) {}
+    }
+
+    public String request(JSONObject json, String strUrl) {
+        Server.Response response = null;
+
+        try {
+            URL url = new URL(strUrl);
+            Client.Post post = new Client.Post(url, json);
+            post.execute();
+
+            response = post.get();
+        } catch (Exception exception) {
+            Log.e(MainActivity.LOG_TAG, exception.getMessage());
+        }
+
+        if (response != null && response.code == 200) {
+            return response.response;
+        } else if (response != null && response.code == 500) {
+            Toast.makeText(this, "Server error", Toast.LENGTH_LONG).show();
+            setNotConnection();
+        }
+        return null;
+    }
+
+    private void setNotConnection() {
+        setContentView(R.layout.not_connection);
     }
 }

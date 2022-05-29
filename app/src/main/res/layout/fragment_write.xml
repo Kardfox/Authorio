@@ -114,4 +114,16 @@
 
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/loversCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Lovers: 100500"
+        android:textColor="@color/second_pink"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonChangeProfile"
+        app:layout_constraintStart_toEndOf="@+id/buttonChangeProfile"
+        app:layout_constraintTop_toTopOf="@+id/buttonChangeProfile" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

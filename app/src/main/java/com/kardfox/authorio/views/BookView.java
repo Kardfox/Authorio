@@ -25,10 +25,12 @@ public class BookView extends ConstraintLayout {
         TextView bookNameView = view.findViewById(R.id.bookName);
         TextView authorNameView = view.findViewById(R.id.authorNameView);
         TextView bookDescriptionView = view.findViewById(R.id.bookDescription);
+        TextView upload_date = view.findViewById(R.id.upload_date);
 
         bookNameView.setText(book.title);
-        authorNameView.setText(authorName);
-        bookDescriptionView.setText(bookDescription);
+        authorNameView.setText(book.username);
+        bookDescriptionView.setText(book.description);
+        upload_date.setText(book.upload_date);
     }
     public View getView() { return view; }
 }

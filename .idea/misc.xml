@@ -5,6 +5,8 @@
       <map>
         <entry key="../../../layout/custom_preview.xml" value="0.384375" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.1975" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1975" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/navigation_bar.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/navigation_bat.xml" value="0.371875" />
@@ -12,11 +14,11 @@
         <entry key="app/src/main/res/drawable/rounded_button_left.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main_not_login.xml" value="0.16" />
-        <entry key="app/src/main/res/layout/book_view.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/book_view.xml" value="0.33" />
         <entry key="app/src/main/res/layout/books_list.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/fragment_info_book.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/fragment_info_user.xml" value="0.47533009034051427" />
+        <entry key="app/src/main/res/layout/fragment_info_book.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_info_user.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.5" />
@@ -24,7 +26,8 @@
         <entry key="app/src/main/res/layout/fragment_write.xml" value="0.33" />
         <entry key="app/src/main/res/layout/info.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/love_author_view.xml" value="0.75" />
-        <entry key="app/src/main/res/layout/note_view.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/not_connection.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/note_view.xml" value="0.5" />
         <entry key="app/src/main/res/layout/note_view_null.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/notes.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/notes_list.xml" value="0.178125" />

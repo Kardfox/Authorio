@@ -9,7 +9,7 @@ import com.kardfox.authorio.bd.UserDB;
 
 import java.util.Locale;
 
-public class UserModel {
+public class UserModel extends Model {
     public String id;
     public String name;
     public String surname;

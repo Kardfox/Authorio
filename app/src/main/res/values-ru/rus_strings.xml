@@ -36,4 +36,6 @@
     <string name="logOut">Выйти</string>
     <string name="books">Книги</string>
     <string name="notes">Записки</string>
+    <string name="lostConnection">Мы потеряли соединение...\\nПростииите</string>
+    <string name="lovers">" поклонников"</string>
 </resources>

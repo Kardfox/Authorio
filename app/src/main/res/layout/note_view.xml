@@ -1,47 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/bookName"
+        android:id="@+id/authorName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:text="Dead Souls"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Android"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/authorNameView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nikolay Gogol"
-        app:layout_constraintStart_toStartOf="@+id/bookName"
-        app:layout_constraintTop_toBottomOf="@+id/bookName" />
-
-    <TextView
-        android:id="@+id/bookDescription"
+        android:id="@+id/textNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:text="description"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="Я помню чудное мнгновение..."
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/authorNameView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/authorNameView"
-        app:layout_constraintTop_toBottomOf="@+id/authorNameView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authorName"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/upload_date"

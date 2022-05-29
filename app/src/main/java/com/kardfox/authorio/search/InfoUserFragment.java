@@ -4,6 +4,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Base64;
 import android.util.Log;
@@ -16,16 +18,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
+import com.kardfox.authorio.models.BookModel;
+import com.kardfox.authorio.models.NoteModel;
+import com.kardfox.authorio.views.BookView;
+import com.kardfox.authorio.views.NoteView;
 import com.kardfox.authorio.views.NotificationView;
 import com.kardfox.authorio.models.CountLovers;
 import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.UserModel;
 import com.kardfox.authorio.server_client.Client;
 import com.kardfox.authorio.server_client.Server;
+import com.kardfox.authorio.write.WriteFragment;
 
 import org.json.JSONObject;
 
@@ -33,38 +41,139 @@ import java.net.URL;
 import java.util.Locale;
 
 public class InfoUserFragment extends Fragment {
+    public static class BookList extends Fragment {
+        String user_id;
+
+        public BookList(String user_id) {
+            this.user_id = user_id;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            Server.Response response = null;
+
+            try {
+                JSONObject json = new JSONObject();
+
+                json.put("user_id", user_id);
+
+                URL url = new URL(Server.URLs.books_get);
+                Client.Post post = new Client.Post(url, json);
+                post.execute();
+
+                response = post.get();
+            } catch (Exception exception) {
+                Log.e(MainActivity.LOG_TAG, exception.getMessage());
+            }
+
+            BookModel[] books;
+            if (response != null && response.code == 200) {
+                Gson gson = new GsonBuilder().create();
+                books = gson.fromJson(response.response, BookModel[].class);
+            } else {
+                books = null;
+            }
+
+            View view = inflater.inflate(R.layout.books_list, container, false);
+            LinearLayout booksList = view.findViewById(R.id.booksList);
+
+            if (books != null) {
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                for (BookModel book: books) {
+                    BookView bookView = new BookView(getContext());
+                    bookView.setData(book);
+                    booksList.addView(bookView.getView(), layoutParams);
+                }
+            }
+
+            return view;
+        }
+    }
+
+    public static class NotesList extends Fragment {
+        String user_id;
+
+        public NotesList(String user_id) {
+            this.user_id = user_id;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            Server.Response response = null;
+
+            try {
+                JSONObject json = new JSONObject();
+
+                json.put("user_id", user_id);
+
+                URL url = new URL(Server.URLs.notes_get);
+                Client.Post post = new Client.Post(url, json);
+                post.execute();
+
+                response = post.get();
+            } catch (Exception exception) {
+                Log.e(MainActivity.LOG_TAG, exception.getMessage());
+            }
+
+            NoteModel[] notes;
+            if (response != null && response.code == 200) {
+                Gson gson = new GsonBuilder().create();
+                notes = gson.fromJson(response.response, NoteModel[].class);
+            } else {
+                notes = null;
+            }
+
+            View view = inflater.inflate(R.layout.notes_list, container, false);
+            LinearLayout notesList = view.findViewById(R.id.notesList);
+
+            if (notes != null) {
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                for (NoteModel note: notes) {
+                    NoteView noteView = new NoteView(getContext());
+                    noteView.setData(note);
+                    notesList.addView(noteView.getView(), layoutParams);
+                }
+            }
+
+            return view;
+        }
+    }
+
     private String authorId;
 
     Button buttonSubscribe;
-    TextView subscribersCount;
     View view;
 
     private String userToken;
 
     private UserModel author;
-    private NotificationModel[] notifications;
 
     private boolean subscribe;
 
     private int count;
 
-    public InfoUserFragment(String authorId) {
+    MainActivity activity;
+
+    public InfoUserFragment(MainActivity activity, String authorId) {
         this.authorId = authorId;
+        this.activity = activity;
     }
+
     InfoUserFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_info_user, container, false);
 
-        userToken = ((MainActivity) getActivity()).GLOBAL_USER.token;
+        userToken = activity.GLOBAL_USER.token;
 
         ImageView authorPhoto = view.findViewById(R.id.authorPhotoInfo);
         TextView authorName = view.findViewById(R.id.authorNameInfo);
         TextView authorDescription = view.findViewById(R.id.authorDescription);
         buttonSubscribe = view.findViewById(R.id.buttonSubscribe);
 
-        LinearLayout notificationContainer = view.findViewById(R.id.notificationsContainerInfo);
 
         loadInfo();
         if (author != null) {
@@ -83,27 +192,33 @@ public class InfoUserFragment extends Fragment {
             Toast.makeText(getContext(), "Server error", Toast.LENGTH_LONG).show();
         }
 
-        loadHistory();
-        if (notifications != null) {
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            for (NotificationModel notification : notifications) {
-                if (notification.object_type == 5) {
-                    notification.text = String.format("%s\n%s", notification.title, notification.text);
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        FragmentManager fManager = activity.getSupportFragmentManager();
+
+        WriteFragment.BookList bookList = new WriteFragment.BookList(authorId);
+        WriteFragment.NotesList notesList = new WriteFragment.NotesList(authorId);
+
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fTransaction.add(R.id.itemsContainer, bookList, "switch");
+        fTransaction.commit();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                FragmentTransaction fTransaction = fManager.beginTransaction();
+                if (position == 0) {
+                    fTransaction.replace(R.id.itemsContainer, bookList, "switch");
                 } else {
-                    notification.text = notification.title;
+                    fTransaction.replace(R.id.itemsContainer, notesList, "switch");
                 }
-                NotificationView notificationView = new NotificationView(getContext());
-                notificationView.setData(notification, (view1) -> {});
-
-                View noteV = notificationView.getView();
-                noteV.setPadding(0, 20, 0, 0);
-
-                notificationContainer.addView(noteV, layoutParams);
+                fTransaction.commit();
             }
-            String textForNullView = notifications.length > 0? "" : getString(R.string.nullPlaceholder);
-            NotificationView.NotificationViewNull viewNull = new NotificationView.NotificationViewNull(getContext(), textForNullView);
-            notificationContainer.addView(viewNull.getView());
-        }
+
+            @Override public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override public void onTabReselected(TabLayout.Tab tab) {}
+        });
 
         return view;
     }
@@ -150,7 +265,7 @@ public class InfoUserFragment extends Fragment {
         buttonSubscribe.setOnClickListener(view2 -> subscribe(true));
     }
 
-    public String getStrCount(int count) {
+    public static String getStrCount(int count) {
         if (count >= 1000000) return String.format(Locale.ROOT, "%.1fM", count / 1000000.0);
         else if (count >= 1000) return String.format(Locale.ROOT , "%.1fK", count / 1000.0);
         else return String.valueOf(count);
@@ -197,29 +312,6 @@ public class InfoUserFragment extends Fragment {
             }
         } catch (Exception exception) {
             Log.e(MainActivity.LOG_TAG, exception.getMessage());
-        }
-    }
-
-
-    public void loadHistory() {
-        Server.Response response = null;
-
-        try {
-            JSONObject json = new JSONObject();
-            json.put("author_id", authorId);
-
-            URL url = new URL(Server.URLs.notifications_long);
-            Client.Post post = new Client.Post(url, json);
-            post.execute();
-
-            response = post.get();
-        } catch (Exception exception) {
-            Log.e(MainActivity.LOG_TAG, exception.getMessage());
-        }
-
-        if (response != null && response.code == 200) {
-            Gson gson = new GsonBuilder().create();
-            notifications = gson.fromJson(response.response, NotificationModel[].class);
         }
     }
 }

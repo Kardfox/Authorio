@@ -5,95 +5,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/authorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:elevation="12dp"
+        app:cardCornerRadius="78dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/authorPhotoInfo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_launcher_foreground" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/authorNameInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Android"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/authorView"
+        app:layout_constraintStart_toEndOf="@+id/authorView"
+        app:layout_constraintTop_toTopOf="@+id/authorView"
+        app:layout_constraintVertical_bias="0.465" />
+
+    <TextView
+        android:id="@+id/authorDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="description"
+        app:layout_constraintEnd_toEndOf="@+id/authorNameInfo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/authorNameInfo"
+        app:layout_constraintTop_toBottomOf="@+id/authorNameInfo" />
+
+    <Button
+        android:id="@+id/buttonSubscribe"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/caveat"
+        android:paddingHorizontal="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:text="100.2K"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/authorNameInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintStart_toEndOf="@+id/authorNameInfo"
+        app:layout_constraintTop_toTopOf="@+id/authorNameInfo" />
 
-        <LinearLayout
-            android:id="@+id/notificationsContainerInfo"
+    <View
+        android:id="@+id/divider8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="32dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/authorDescription"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider8"
+        tools:layout_editor_absoluteX="0dp">
+
+        <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/books" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notes" />
+    </com.google.android.material.tabs.TabLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/authorView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginVertical="10dp"
-                    android:elevation="12dp"
-                    app:cardCornerRadius="78dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+    <FrameLayout
+        android:id="@+id/itemsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
-                    <ImageView
-                        android:id="@+id/authorPhotoInfo"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/ic_launcher_foreground" />
+    </FrameLayout>
 
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/authorNameInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="Android"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/authorView"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/authorDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="description"
-                    app:layout_constraintEnd_toEndOf="@+id/authorNameInfo"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/authorNameInfo"
-                    app:layout_constraintTop_toBottomOf="@+id/authorNameInfo" />
-
-                <Button
-                    android:id="@+id/buttonSubscribe"
-                    android:layout_width="60dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/caveat"
-                    android:paddingHorizontal="0dp"
-                    android:paddingTop="0dp"
-                    android:paddingBottom="0dp"
-                    android:text="100.2K"
-                    android:textAlignment="textStart"
-                    android:textSize="18sp"
-                    app:iconPadding="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/authorNameInfo"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.006"
-                    app:layout_constraintStart_toEndOf="@+id/authorNameInfo"
-                    app:layout_constraintTop_toTopOf="@+id/authorNameInfo"
-                    app:layout_constraintVertical_bias="0.375" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/divider8"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

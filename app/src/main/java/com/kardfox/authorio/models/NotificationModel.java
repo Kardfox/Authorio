@@ -1,7 +1,7 @@
 package com.kardfox.authorio.models;
 
 
-public class NotificationModel {
+public class NotificationModel extends Model {
     public int user_id;
     public String title;
     public String text;

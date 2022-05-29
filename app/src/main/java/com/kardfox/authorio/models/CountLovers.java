@@ -1,6 +1,6 @@
 package com.kardfox.authorio.models;
 
-public class CountLovers {
+public class CountLovers extends Model {
     public UserModel[] lovers;
     public int subscribe;
     public int mirror;
