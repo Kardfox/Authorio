@@ -190,13 +190,16 @@ public class MainActivity extends AppCompatActivity {
             Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());
         }
 
-        if (response != null && response.code == 200) {
-            return response;
-        } else if (response != null && response.code == 500) {
-            Toast.makeText(this, "Server error", Toast.LENGTH_LONG).show();
-            setNotConnection();
+        if (response != null) {
+            if (response.code == 500) {
+                Toast.makeText(this, "Server error", Toast.LENGTH_LONG).show();
+                setNotConnection();
+            } else if (response.code == 404) {
+                Toast.makeText(this, "Authentication error", Toast.LENGTH_LONG).show();
+                logOut();
+            }
         }
-        return null;
+        return response;
     }
 
     private void setNotConnection() {

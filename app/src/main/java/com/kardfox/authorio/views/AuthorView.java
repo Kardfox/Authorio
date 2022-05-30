@@ -52,7 +52,7 @@ public class AuthorView extends FrameLayout {
                 json.put("user_id", user.id);
 
                 Server.Response response = activity.request(json, activity.URLs.love_authors);
-                if (response == null) return;
+                if (response.code != 200) return;
                 authors = activity.gson.fromJson(response.response, UserModel[].class);
             } catch (Exception exception) {
                 Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());

@@ -97,7 +97,7 @@ public class SearchFragment extends Fragment {
             json.put("surname", surname);
 
             Server.Response response = activity.request(json, activity.URLs.get_user);
-            if (response == null) return null;
+            if (response.code != 200) return null;
 
             return activity.gson.fromJson(response.response, UserModel[].class);
         } catch (Exception exception) {

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
+import com.kardfox.authorio.models.UserModel;
 import com.kardfox.authorio.server_client.Server.Response;
 
 import org.json.JSONObject;
@@ -108,7 +109,10 @@ public class SignUpFragment extends Fragment {
                                 json.put("surname", null);
                                 json.put("device", Build.MODEL);
 
-                                activity.request(json, activity.URLs.login);
+                                response = activity.request(json, activity.URLs.login);
+                                UserModel user = activity.gson.fromJson(response.response, UserModel.class);
+                                activity.saveUser(user);
+
                                 break;
                             case 403:
                                 textEmailError.setText(R.string.emailIsExists);

@@ -59,7 +59,7 @@ public class InfoUserFragment extends Fragment {
                 json.put("user_id", user_id);
 
                 Response response = activity.request(json, activity.URLs.books_get);
-                if (response == null) return null;
+                if (response.code != 200) return null;
                 books = activity.gson.fromJson(response.response, BookModel[].class);
             } catch (JSONException ignored) {}
 
@@ -101,7 +101,7 @@ public class InfoUserFragment extends Fragment {
                 json.put("user_id", user_id);
 
                 Response response = activity.request(json, activity.URLs.notes_get);
-                if (response == null) return null;
+                if (response.code != 200) return null;
                 notes = activity.gson.fromJson(response.response, NoteModel[].class);
             } catch (JSONException ignored) {}
 
@@ -141,7 +141,8 @@ public class InfoUserFragment extends Fragment {
         this.activity = activity;
     }
 
-    InfoUserFragment() {}
+
+    public InfoUserFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -253,7 +254,7 @@ public class InfoUserFragment extends Fragment {
             json.put("id", authorId);
 
             Response response = activity.request(json, activity.URLs.get_user);
-            if (response == null) return;
+            if (response.code != 200) return;
             author = activity.gson.fromJson(response.response, UserModel[].class)[0];
 
             response = activity.request(json, activity.URLs.get_lovers);

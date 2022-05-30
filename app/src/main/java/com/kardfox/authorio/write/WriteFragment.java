@@ -55,7 +55,7 @@ public class WriteFragment extends Fragment {
             json.put("id", activity.GLOBAL_USER.id);
         } catch (JSONException ignored) {}
         Response response = activity.request(json, activity.URLs.get_lovers);
-        if (response == null) return null;
+        if (response.code != 200) return null;
 
         CountLovers countLovers = activity.gson.fromJson(response.response, CountLovers.class);
         loversCount.setText(String.format("%s %s", InfoUserFragment.getStrCount(countLovers.lovers.length), getString(R.string.lovers)));

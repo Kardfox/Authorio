@@ -60,7 +60,7 @@ public class NotificationView extends ConstraintLayout {
         public static void updateList(UserModel user, MainActivity activity) {
             try {
                 Server.Response response = activity.request(new JSONObject(), NotificationView.activity.URLs.notifications_read);
-                if (response == null) return;
+                if (response.code != 200) return;
                 notifications = activity.gson.fromJson(response.response, NotificationModel[].class);
             } catch (Exception exception) {
                 Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());

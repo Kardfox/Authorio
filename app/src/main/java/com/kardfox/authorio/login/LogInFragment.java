@@ -89,10 +89,7 @@ public class LogInFragment extends Fragment {
                 if (response != null) {
                     switch (response.code) {
                         case 200:
-                            GsonBuilder builder = new GsonBuilder();
-                            Gson gson = builder.create();
-
-                            UserModel user = gson.fromJson(response.response, UserModel.class);
+                            UserModel user = activity.gson.fromJson(response.response, UserModel.class);
                             editEmail.setText("");
                             editPassword.setText("");
                             activity.saveUser(user);
@@ -100,7 +97,7 @@ public class LogInFragment extends Fragment {
                         case 403:
                             textPasswordError.setText(R.string.wrongPassword);
                             break;
-                        case 404:
+                        case 409:
                             textEmailError.setText(R.string.userNotFound);
                             break;
                         default:
