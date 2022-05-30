@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,15 +36,13 @@ public class WriteFragment extends Fragment {
 
     public WriteFragment(MainActivity activity) {
         this.activity = activity;
-        setUserData();
     }
-
-    void setUserData() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_write, container, false);
+        if (activity == null) return null;
 
         TextView authorNameInfo = view.findViewById(R.id.authorNameInfo);
         authorNameInfo.setText(String.format("%s %s", activity.GLOBAL_USER.name, activity.GLOBAL_USER.surname));
@@ -80,21 +79,22 @@ public class WriteFragment extends Fragment {
                 int position = tab.getPosition();
                 Log.d(MainActivity.LOG_TAG, String.format("SELECTED AUTHOR TAB^ %d", position));
 
+                FragmentTransaction fTransaction = fManager.beginTransaction();
                 if (position == 0) {
-                    FragmentTransaction fTransaction = fManager.beginTransaction();
                     fTransaction.replace(R.id.itemsContainer, bookList, "switch");
-                    fTransaction.commit();
                 } else {
-                    FragmentTransaction fTransaction = fManager.beginTransaction();
                     fTransaction.replace(R.id.itemsContainer, notesList, "switch");
-                    fTransaction.commit();
                 }
+                fTransaction.commit();
             }
 
             @Override public void onTabUnselected(TabLayout.Tab tab) { }
 
             @Override public void onTabReselected(TabLayout.Tab tab) {}
         });
+
+        Button buttonLogOut = view.findViewById(R.id.buttonLogOut);
+        buttonLogOut.setOnClickListener(_view -> activity.logOut());
 
         return view;
     }

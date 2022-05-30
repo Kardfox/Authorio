@@ -8,15 +8,15 @@ import java.util.Locale;
 
 public class Server {
     public static class URLs {
-        public final String main = "http://192.168.1.112:5000";
+        public String main = "http://192.168.1.112:5000";
 
         //auth
-        public final String login  = String.format("%s/login", main);
-        public final String signup = String.format("%s/signup", main);
-        public final String logout = String.format("%s/logout", main);
+        public String login  = String.format("%s/login", main);
+        public String signup = String.format("%s/signup", main);
+        public String logout;
 
         //book
-        public final String books_get = String.format("%s/books/get", main);
+        public String books_get = String.format("%s/books/get", main);
 
         //notes
         public final String notes_get = String.format("%s/notes/get", main);
@@ -32,6 +32,7 @@ public class Server {
         public String notifications_read;
 
         public void setUrls(String token) {
+            logout = String.format("%s/logout/%s", main, token);
             love_authors = String.format("%s/users/get/love_authors/%s", main, token);
             unsubscribe = String.format("%s/users/delete/love_author/%s", main, token);
             get_lovers = String.format("%s/users/get/lovers/%s", main, token);

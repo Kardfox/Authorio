@@ -48,6 +48,7 @@ public class LogInFragment extends Fragment {
 
         editPassword = view.findViewById(R.id.editPassword);
         textPasswordError = view.findViewById(R.id.textPasswordError);
+        editPassword.setText("");
 
         Button buttonLogIn = view.findViewById(R.id.buttonLogIn);
         Button buttonSwitchToSignUp = view.findViewById(R.id.buttonSwitchToSignUp);
@@ -92,6 +93,8 @@ public class LogInFragment extends Fragment {
                             Gson gson = builder.create();
 
                             UserModel user = gson.fromJson(response.response, UserModel.class);
+                            editEmail.setText("");
+                            editPassword.setText("");
                             activity.saveUser(user);
                             break;
                         case 403:
@@ -111,12 +114,9 @@ public class LogInFragment extends Fragment {
             }
         });
 
-        buttonSwitchToSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int[] anim = {R.anim.slide_right_enter, R.anim.slide_left_exit};
-                activity.changeFragment(activity.fSignUp, anim);
-            }
+        buttonSwitchToSignUp.setOnClickListener(view12 -> {
+            int[] anim = {R.anim.slide_right_enter, R.anim.slide_left_exit};
+            activity.changeFragment(activity.fSignUp, anim);
         });
 
         return view;

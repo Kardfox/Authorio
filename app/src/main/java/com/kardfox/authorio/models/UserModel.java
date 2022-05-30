@@ -32,9 +32,10 @@ public class UserModel extends Model {
         Cursor c = db.rawQuery("SELECT * FROM user", null);
         c.moveToFirst();
 
-        UserModel user = new UserModel(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), c.getString(6));
-        c.close();
+        UserModel user = null;
+        if (c.getCount() > 0) user = new UserModel(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), c.getString(6));
 
+        c.close();
         return user;
     }
 
@@ -51,6 +52,10 @@ public class UserModel extends Model {
 
         long result = db.insert(UserDB.tableName, null, values);
         return result != -1;
+    }
+
+    public static void delete(SQLiteDatabase db) {
+        db.execSQL("DELETE FROM user");
     }
 
     @Override

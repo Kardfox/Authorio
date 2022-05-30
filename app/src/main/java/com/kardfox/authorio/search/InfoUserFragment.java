@@ -40,6 +40,8 @@ public class InfoUserFragment extends Fragment {
         String user_id;
         MainActivity activity;
 
+        public BookList() {}
+
         public BookList(String user_id, MainActivity activity) {
             this.user_id = user_id;
             this.activity = activity;
@@ -48,6 +50,9 @@ public class InfoUserFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.books_list, container, false);
+            if (activity == null) return view;
+
             BookModel[] books = null;
             try {
                 JSONObject json = new JSONObject();
@@ -58,7 +63,7 @@ public class InfoUserFragment extends Fragment {
                 books = activity.gson.fromJson(response.response, BookModel[].class);
             } catch (JSONException ignored) {}
 
-            View view = inflater.inflate(R.layout.books_list, container, false);
+
             LinearLayout booksList = view.findViewById(R.id.booksList);
 
             if (books != null) {
@@ -78,6 +83,8 @@ public class InfoUserFragment extends Fragment {
         String user_id;
         MainActivity activity;
 
+        public NotesList() {}
+
         public NotesList(String user_id, MainActivity activity) {
             this.user_id = user_id;
             this.activity = activity;
@@ -86,6 +93,8 @@ public class InfoUserFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.notes_list, container, false);
+            
             NoteModel[] notes = null;
             try {
                 JSONObject json = new JSONObject();
@@ -96,7 +105,7 @@ public class InfoUserFragment extends Fragment {
                 notes = activity.gson.fromJson(response.response, NoteModel[].class);
             } catch (JSONException ignored) {}
 
-            View view = inflater.inflate(R.layout.notes_list, container, false);
+
             LinearLayout notesList = view.findViewById(R.id.notesList);
 
             if (notes != null) {

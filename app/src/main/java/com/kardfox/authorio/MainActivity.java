@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     public Gson gson = new GsonBuilder().create();
 
-    public UserModel GLOBAL_USER;
+    public UserModel GLOBAL_USER = null;
 
     private SQLiteDatabase db;
 
@@ -67,16 +67,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
+        if (request(new JSONObject(), URLs.main) == null) return;
+
         UserDB readDB = new UserDB("User.db", getApplicationContext());
         db = readDB.getReadableDatabase();
 
-        boolean login = checkLogin(db);
+        GLOBAL_USER = UserModel.get(db);
 
-        if (!login) {
+        fManager = getSupportFragmentManager();
+
+        fLogIn = new LogInFragment();
+        fSignUp = new SignUpFragment();
+
+        if (GLOBAL_USER == null) {
             setContentView(R.layout.activity_main_not_login);
 
             FragmentTransaction fTransaction = fManager.beginTransaction();
-            fTransaction.add(R.id.accountContainer, fLogIn, "switch");
+            fTransaction.add(R.id.fragmentContainer, fLogIn, "switch");
             fTransaction.commit();
             return;
         }
@@ -86,13 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void initMain() {
         setContentView(R.layout.activity_main);
-
-        GLOBAL_USER = UserModel.get(db);
-
-        fManager = getSupportFragmentManager();
-
-        fLogIn = new LogInFragment();
-        fSignUp = new SignUpFragment();
 
         fMain = new MainFragment();
         fSearch = new SearchFragment(this);
@@ -120,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragment(Fragment newFragment, int[] enter_exit) {
         FragmentTransaction fTransaction = fManager.beginTransaction();
 
-        Log.i(MainActivity.LOG_TAG, "Switching!");
-
         fTransaction.setCustomAnimations(enter_exit[0], enter_exit[1]);
         fTransaction.replace(R.id.fragmentContainer, newFragment, "switch");
         fTransaction.addToBackStack(null).commit();
@@ -148,23 +146,21 @@ public class MainActivity extends AppCompatActivity {
         setSelected(section);
     }
 
-    private boolean checkLogin(SQLiteDatabase db) {
-        Cursor cursor = db.rawQuery("SELECT * FROM user;", null);
-        int count = cursor.getCount();
-        cursor.close();
-
-        return count > 0;
-    }
-
     public void saveUser(UserModel user) {
         GLOBAL_USER = user;
         GLOBAL_USER.insert(db);
 
         Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
-        ConstraintLayout root = findViewById(R.id.accountContainer);
+        ConstraintLayout root = findViewById(R.id.fragmentContainer);
         root.startAnimation(animSlideDown);
 
         initMain();
+    }
+
+    public void logOut() {
+        UserModel.delete(db);
+        request(new JSONObject(), URLs.logout);
+        recreate();
     }
 
     private void disable() {
