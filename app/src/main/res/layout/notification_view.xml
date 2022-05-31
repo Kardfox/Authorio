@@ -6,28 +6,19 @@
     android:layout_height="wrap_content"
     android:id="@+id/notificationView">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="12dp"
-        app:cardCornerRadius="39dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.024"
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/roundedImage"
+        android:id="@+id/authorPhotoNote"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/authorPhotoNote"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_launcher_foreground"
-            tools:ignore="ContentDescription" />
-    </androidx.cardview.widget.CardView>
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/authorNameNote"
@@ -35,12 +26,11 @@
         android:layout_height="wrap_content"
         android:text="Android"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintBottom_toBottomOf="@+id/authorPhotoNote"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.038"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toEndOf="@+id/authorPhotoNote"
+        app:layout_constraintTop_toTopOf="@+id/authorPhotoNote"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -53,8 +43,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/authorNameNote"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/authorPhotoNote"
+        app:layout_constraintTop_toBottomOf="@+id/authorPhotoNote"
         app:layout_constraintVertical_bias="0.616"
         tools:ignore="HardcodedText" />
 

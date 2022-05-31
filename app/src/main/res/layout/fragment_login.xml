@@ -16,10 +16,9 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.408" />
+        app:layout_constraintVertical_bias="0.373" />
 
     <EditText
         android:id="@+id/editPassword"
@@ -38,11 +37,12 @@
 
     <Button
         android:id="@+id/buttonLogIn"
-        style="@style/buttonRound"
         android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginTop="8dp"
-        android:drawableTop="@drawable/ic_baseline_check_24"
+        android:paddingStart="10dp"
+        app:cornerRadius="70dp"
+        app:icon="@drawable/ic_baseline_check_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"

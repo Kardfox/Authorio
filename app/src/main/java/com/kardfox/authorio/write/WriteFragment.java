@@ -13,9 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
@@ -32,18 +32,15 @@ import org.json.JSONObject;
 public class WriteFragment extends Fragment {
     MainActivity activity;
 
+    View view = null;
+
     public WriteFragment() {}
 
     public WriteFragment(MainActivity activity) {
         this.activity = activity;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_write, container, false);
-        if (activity == null) return null;
-
+    private void setData(View view) {
         TextView authorNameInfo = view.findViewById(R.id.authorNameInfo);
         authorNameInfo.setText(String.format("%s %s", activity.GLOBAL_USER.name, activity.GLOBAL_USER.surname));
         TextView authorDescription = view.findViewById(R.id.authorDescription);
@@ -55,12 +52,12 @@ public class WriteFragment extends Fragment {
             json.put("id", activity.GLOBAL_USER.id);
         } catch (JSONException ignored) {}
         Response response = activity.request(json, activity.URLs.get_lovers);
-        if (response.code != 200) return null;
+        if (response.code != 200) return;
 
         CountLovers countLovers = activity.gson.fromJson(response.response, CountLovers.class);
         loversCount.setText(String.format("%s %s", InfoUserFragment.getStrCount(countLovers.lovers.length), getString(R.string.lovers)));
 
-        ImageView authorPhoto = view.findViewById(R.id.authorPhoto);
+        ShapeableImageView authorPhoto = view.findViewById(R.id.authorPhoto);
         byte[] imageBytes = Base64.decode(activity.GLOBAL_USER.photo, 0);
         authorPhoto.setImageBitmap(BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length));
 
@@ -96,6 +93,23 @@ public class WriteFragment extends Fragment {
         Button buttonLogOut = view.findViewById(R.id.buttonLogOut);
         buttonLogOut.setOnClickListener(_view -> activity.logOut());
 
+        Button buttonChangeProfile = view.findViewById(R.id.buttonChangeProfile);
+        buttonChangeProfile.setOnClickListener(_view -> {
+            ChangeProfileFragment changeProfileFragment = new ChangeProfileFragment(activity);
+            activity.changeFragment(changeProfileFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (view != null) setData(view);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_write, container, false);
         return view;
     }
 }

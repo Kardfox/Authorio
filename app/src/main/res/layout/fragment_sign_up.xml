@@ -19,33 +19,31 @@
 
     <EditText
         android:id="@+id/editPassword2"
-        android:layout_width="283dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="@string/passwordPlaceholder"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.669" />
+        app:layout_constraintEnd_toEndOf="@+id/editEmail2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editEmail2"
+        app:layout_constraintTop_toBottomOf="@+id/editEmail2" />
 
     <EditText
         android:id="@+id/editEmail2"
-        android:layout_width="283dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="296dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="@string/emailPlaceholder"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/editPassword2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.699" />
+        app:layout_constraintEnd_toEndOf="@+id/editSurname"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editSurname"
+        app:layout_constraintTop_toBottomOf="@+id/editSurname" />
 
     <TextView
         android:id="@+id/textEmailError2"
@@ -67,10 +65,12 @@
 
     <Button
         android:id="@+id/buttonSignUp"
-        style="@style/buttonRound"
         android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:drawableTop="@drawable/ic_baseline_check_24"
+        android:layout_height="70dp"
+        android:layout_marginTop="8dp"
+        android:paddingStart="10dp"
+        app:cornerRadius="70dp"
+        app:icon="@drawable/ic_baseline_check_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.881"
@@ -105,26 +105,25 @@
         android:id="@+id/editName"
         android:layout_width="283dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="164dp"
         android:ems="10"
         android:hint="@string/namePlaceholder"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editSurname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.828" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editSurname"
-        android:layout_width="283dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="@string/surnamePlaceholder"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editEmail2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.896" />
+        app:layout_constraintEnd_toEndOf="@+id/editName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editName"
+        app:layout_constraintTop_toBottomOf="@+id/editName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

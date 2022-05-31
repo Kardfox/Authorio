@@ -163,6 +163,12 @@ public class MainActivity extends AppCompatActivity {
         recreate();
     }
 
+    public void changeUser(UserModel newUser) {
+        UserModel.delete(db);
+        newUser.insert(db);
+        GLOBAL_USER = newUser;
+    }
+
     private void disable() {
         toMain.setBackground(AppCompatResources.getDrawable(this, R.drawable.main_draw));
         toSearch.setBackground(AppCompatResources.getDrawable(this, R.drawable.search_draw));

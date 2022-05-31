@@ -6,25 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".write.WriteFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:elevation="12dp"
-        app:cardCornerRadius="78dp"
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/roundedImage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.007">
-
-        <ImageView
-            android:id="@+id/authorPhoto"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_launcher_foreground" />
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintVertical_bias="0.007"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/authorPhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/authorNameInfo"
@@ -33,9 +26,9 @@
         android:layout_marginStart="10dp"
         android:text="Android"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView2"
-        app:layout_constraintStart_toEndOf="@+id/cardView2"
-        app:layout_constraintTop_toTopOf="@+id/cardView2"
+        app:layout_constraintBottom_toBottomOf="@+id/authorPhoto"
+        app:layout_constraintStart_toEndOf="@+id/authorPhoto"
+        app:layout_constraintTop_toTopOf="@+id/authorPhoto"
         app:layout_constraintVertical_bias="0.369" />
 
     <TextView
@@ -54,9 +47,9 @@
         android:layout_height="43dp"
         android:text="@string/changeProfile"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/cardView2"
+        app:layout_constraintEnd_toEndOf="@+id/authorPhoto"
         app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toStartOf="@+id/cardView2"
+        app:layout_constraintStart_toStartOf="@+id/authorPhoto"
         app:layout_constraintTop_toBottomOf="@+id/authorDescription"
         app:layout_constraintVertical_bias="0.066" />
 

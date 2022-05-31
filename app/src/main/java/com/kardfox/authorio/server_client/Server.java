@@ -27,6 +27,7 @@ public class Server {
         public String subscribe;
         public String get_user = String.format("%s/users/get", main);
         public String get_lovers;
+        public String change_user;
 
         //notify
         public String notifications_read;
@@ -36,6 +37,7 @@ public class Server {
             love_authors = String.format("%s/users/get/love_authors/%s", main, token);
             unsubscribe = String.format("%s/users/delete/love_author/%s", main, token);
             get_lovers = String.format("%s/users/get/lovers/%s", main, token);
+            change_user = String.format("%s/user/change/%s", main, token);
             subscribe = String.format("%s/users/add/love_author/%s", main, token);
             notifications_read = String.format("%s/notifications/read/%s", main, token);
         }

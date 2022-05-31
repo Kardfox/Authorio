@@ -23,7 +23,13 @@
         <item name="android:background">@drawable/rounded_button_left</item>
     </style>
 
-    <style name="buttonRound" parent="Widget.MaterialComponents.Button">
-        <item name="android:background">@drawable/round_button</item>
+    <style name="roundedImageApp">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="roundedImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

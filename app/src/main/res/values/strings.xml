@@ -42,4 +42,10 @@
 
     <!-- INFO -->
     <string name="lovers">lovers</string>
+    <string name="changeProfileText">Change your profile</string>
+    <string name="descriptionPlaceholder">Description</string>
+    <string name="changePasswordText">Change password</string>
+    <string name="saveChanges">Save changes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

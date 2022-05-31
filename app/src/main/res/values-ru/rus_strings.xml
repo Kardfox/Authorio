@@ -38,4 +38,8 @@
     <string name="notes">Записки</string>
     <string name="lostConnection">Мы потеряли соединение...\\nПростииите</string>
     <string name="lovers">" поклонников"</string>
+    <string name="changeProfileText">Изменить свой профиль</string>
+    <string name="descriptionPlaceholder">Описание</string>
+    <string name="changePasswordText">Изменить пароль</string>
+    <string name="saveChanges">Сохранить изменения</string>
 </resources>
