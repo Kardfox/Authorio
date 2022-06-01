@@ -8,7 +8,7 @@ import java.util.Locale;
 
 public class Server {
     public static class URLs {
-        public String main = "http://192.168.1.112:5000";
+        public String main = "http://192.168.56.1:5000";
 
         //auth
         public String login  = String.format("%s/login", main);
@@ -28,6 +28,7 @@ public class Server {
         public String get_user = String.format("%s/users/get", main);
         public String get_lovers;
         public String change_user;
+        public String change_password;
 
         //notify
         public String notifications_read;
@@ -38,6 +39,7 @@ public class Server {
             unsubscribe = String.format("%s/users/delete/love_author/%s", main, token);
             get_lovers = String.format("%s/users/get/lovers/%s", main, token);
             change_user = String.format("%s/user/change/%s", main, token);
+            change_password = String.format("%s/user/change_password/%s", main, token);
             subscribe = String.format("%s/users/add/love_author/%s", main, token);
             notifications_read = String.format("%s/notifications/read/%s", main, token);
         }

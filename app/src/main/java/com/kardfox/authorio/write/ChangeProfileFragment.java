@@ -94,6 +94,11 @@ public class ChangeProfileFragment extends Fragment {
         editDescription.setText(activity.GLOBAL_USER.description);
 
         Button changePassword = view.findViewById(R.id.buttonChangePassword);
+        changePassword.setOnClickListener(_view -> {
+            ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment(activity);
+            activity.changeFragment(changePasswordFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
+        });
+
         Button saveChanges = view.findViewById(R.id.buttonSaveChanges);
         saveChanges.setOnClickListener(_view -> {
             try {

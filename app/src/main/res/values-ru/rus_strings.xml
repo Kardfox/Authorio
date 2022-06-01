@@ -42,4 +42,8 @@
     <string name="descriptionPlaceholder">Описание</string>
     <string name="changePasswordText">Изменить пароль</string>
     <string name="saveChanges">Сохранить изменения</string>
+    <string name="oldPassword">Старый пароль</string>
+    <string name="newPassword">Новый пароль</string>
+    <string name="passwordsAreSame">Пароли одинаковы</string>
+    <string name="successfulPasswordEdit">Пароль изменен</string>
 </resources>

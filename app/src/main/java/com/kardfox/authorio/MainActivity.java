@@ -160,7 +160,11 @@ public class MainActivity extends AppCompatActivity {
     public void logOut() {
         UserModel.delete(db);
         request(new JSONObject(), URLs.logout);
-        recreate();
+        setContentView(R.layout.activity_main_not_login);
+        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        ConstraintLayout root = findViewById(R.id.fragmentContainer);
+        root.startAnimation(animSlideDown);
+        changeFragment(fLogIn, new int[] {R.anim.slide_up, R.anim.slide_down});
     }
 
     public void changeUser(UserModel newUser) {

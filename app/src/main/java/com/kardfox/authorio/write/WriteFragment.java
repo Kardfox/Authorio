@@ -34,6 +34,8 @@ public class WriteFragment extends Fragment {
 
     View view = null;
 
+    public ChangeProfileFragment changeProfileFragment;
+
     public WriteFragment() {}
 
     public WriteFragment(MainActivity activity) {
@@ -95,7 +97,7 @@ public class WriteFragment extends Fragment {
 
         Button buttonChangeProfile = view.findViewById(R.id.buttonChangeProfile);
         buttonChangeProfile.setOnClickListener(_view -> {
-            ChangeProfileFragment changeProfileFragment = new ChangeProfileFragment(activity);
+            changeProfileFragment = new ChangeProfileFragment(activity);
             activity.changeFragment(changeProfileFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
         });
     }
@@ -103,7 +105,7 @@ public class WriteFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (view != null) setData(view);
+        if (view != null && activity != null) setData(view);
     }
 
     @Override
