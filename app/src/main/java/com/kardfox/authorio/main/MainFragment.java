@@ -74,8 +74,6 @@ public class MainFragment extends Fragment {
                 loveAuthorV.setPadding(15, 0, 0, 0);
                 container.addView(loveAuthorV, layoutParams);
             }
-        } else {
-            container.removeAllViews();
         }
     }
 
@@ -100,9 +98,8 @@ public class MainFragment extends Fragment {
                 noteV.setPadding(0, 20, 0, 0);
                 container.addView(noteV);
             }
-            container.addView(new NotificationView.NotificationViewNull(getContext(), NotificationView.Notification.notifications.length > 0? "" : getString(R.string.nullPlaceholder)).getView(), layoutParams);
-        } else {
-            container.removeAllViews();
         }
+
+        container.addView(new NotificationView.NotificationViewNull(getContext(), NotificationView.Notification.notifications != null? "" : getString(R.string.nullPlaceholder)).getView(), layoutParams);
     }
 }

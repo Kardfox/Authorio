@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
+import com.kardfox.authorio.models.NotificationModel;
 import com.kardfox.authorio.models.ResponseBookModel;
 import com.kardfox.authorio.models.NoteModel;
 import com.kardfox.authorio.views.BookView;
@@ -72,7 +73,15 @@ public class InfoUserFragment extends Fragment {
                 for (ResponseBookModel.BookModel book: books) {
                     BookView bookView = new BookView(activity);
                     bookView.setData(book);
-                    booksList.addView(bookView.getView(), layoutParams);
+                    View buttonView = bookView.getView();
+                    buttonView.setOnClickListener(_view -> {
+                        NotificationModel notification = new NotificationModel();
+                        notification.object_id = book.id;
+                        notification.object_type = NotificationModel.NotificationTypes.NEW_BOOK.intType;
+                        SearchFragment.showNotificationObject(activity, notification);
+                        activity.showBar();
+                    });
+                    booksList.addView(buttonView, layoutParams);
                 }
                 booksList.addView(new NotificationView.NotificationViewNull(getContext(), books.length > 0? "" : getString(R.string.nullPlaceholder)).getView());
             }

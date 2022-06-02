@@ -5,6 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/editTextNote3"
+        style="@style/Widget.Material3.TextInputEditText.FilledBox"
+        android:layout_width="0dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/descriptionPlaceholder"
+        android:inputType="textMultiLine"
+        android:paddingStart="5dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="5dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/editBookTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editBookTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editBookTitle" />
+
+    <EditText
+        android:id="@+id/editTags"
+        style="@style/Widget.Material3.TextInputEditText.FilledBox"
+        android:layout_width="0dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/tagsText"
+        android:inputType="textMultiLine"
+        android:paddingStart="5dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="5dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/editBookTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editBookTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNote3" />
+
     <TextView
         android:id="@+id/textBookErrors"
         android:layout_width="wrap_content"
@@ -28,32 +66,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.192" />
 
-    <EditText
-        android:id="@+id/editTags"
-        android:layout_width="0dp"
-        android:layout_height="161dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="@string/tagsText"
-        android:inputType="textMultiLine|textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editBookTitle"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editBookTitle"
-        app:layout_constraintTop_toBottomOf="@+id/editBookDescription" />
-
-    <EditText
-        android:id="@+id/editBookDescription"
-        android:layout_width="0dp"
-        android:layout_height="161dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="@string/descriptionPlaceholder"
-        android:inputType="textMultiLine|textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editBookTitle"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editBookTitle"
-        app:layout_constraintTop_toBottomOf="@+id/editBookTitle" />
-
     <TextView
         android:id="@+id/textAddBook"
         android:layout_width="wrap_content"
@@ -70,7 +82,7 @@
         android:id="@+id/buttonAdd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="@string/add"
         app:layout_constraintEnd_toEndOf="@+id/editTags"
         app:layout_constraintHorizontal_bias="0.0"

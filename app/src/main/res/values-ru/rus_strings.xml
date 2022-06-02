@@ -52,4 +52,5 @@
     <string name="add">Добавить</string>
     <string name="emptyEntries">Есть пустые поля</string>
     <string name="tooManyTags">Слишком много тэгов</string>
+    <string name="noteText">Текст записки...</string>
 </resources>

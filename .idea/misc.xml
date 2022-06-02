@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/books_list.xml" value="0.16" />
         <entry key="app/src/main/res/layout/chapter_view.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_add_book.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_add_note.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_change_password.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_change_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chapter.xml" value="0.25" />

@@ -21,6 +21,7 @@ public class Server {
 
         //notes
         public final String notes_get = String.format("%s/notes/get", main);
+        public String add_note;
 
         //user
         public String love_authors;
@@ -48,6 +49,7 @@ public class Server {
             notifications_read = String.format("%s/notifications/read/%s", main, token);
             add_book = String.format("%s/books/add/%s", main, token);
             book_get = String.format("%s/book/get/%s", main, token);
+            add_note = String.format("%s/notes/add/%s", main, token);
         }
     }
 

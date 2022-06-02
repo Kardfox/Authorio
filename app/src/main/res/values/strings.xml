@@ -56,4 +56,6 @@
     <string name="add">Add</string>
     <string name="emptyEntries">Empty fileds</string>
     <string name="tooManyTags">Too many tags</string>
+    <string name="noteText">Note text...</string>
+    <string name="upload">Upload</string>
 </resources>

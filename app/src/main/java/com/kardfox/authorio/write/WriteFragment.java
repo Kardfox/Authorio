@@ -36,6 +36,8 @@ public class WriteFragment extends Fragment {
 
     public ChangeProfileFragment changeProfileFragment;
 
+    TabLayout tabLayout;
+
     public WriteFragment() {}
 
     public WriteFragment(MainActivity activity) {
@@ -63,7 +65,7 @@ public class WriteFragment extends Fragment {
         byte[] imageBytes = Base64.decode(activity.GLOBAL_USER.photo, 0);
         authorPhoto.setImageBitmap(BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length));
 
-        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        tabLayout = view.findViewById(R.id.tabLayout);
         FragmentManager fManager = activity.getSupportFragmentManager();
 
         InfoUserFragment.BookList bookList = new InfoUserFragment.BookList(activity.GLOBAL_USER.id, activity);
@@ -107,11 +109,12 @@ public class WriteFragment extends Fragment {
             int position = tabLayout.getSelectedTabPosition();
             if (position == 0) {
                 AddBookFragment addBookFragment = new AddBookFragment(activity);
-                activity.hideBar();
                 activity.changeFragment(addBookFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
             } else {
-                //TODO: Сделать добавление записок
+                AddNoteFragment addNoteFragment = new AddNoteFragment(activity);
+                activity.changeFragment(addNoteFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
             }
+            activity.hideBar();
         });
     }
 
