@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.kardfox.authorio.MainActivity;
 import com.kardfox.authorio.R;
-import com.kardfox.authorio.models.BookModel;
+import com.kardfox.authorio.models.ResponseBookModel;
 import com.kardfox.authorio.models.NoteModel;
 import com.kardfox.authorio.views.BookView;
 import com.kardfox.authorio.views.NoteView;
@@ -29,6 +29,7 @@ import com.kardfox.authorio.models.CountLovers;
 import com.kardfox.authorio.models.UserModel;
 
 import com.kardfox.authorio.server_client.Server.Response;
+import com.kardfox.authorio.views.NotificationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,14 +54,14 @@ public class InfoUserFragment extends Fragment {
             View view = inflater.inflate(R.layout.books_list, container, false);
             if (activity == null) return view;
 
-            BookModel[] books = null;
+            ResponseBookModel.BookModel[] books = null;
             try {
                 JSONObject json = new JSONObject();
                 json.put("user_id", user_id);
 
                 Response response = activity.request(json, activity.URLs.books_get);
                 if (response.code != 200) return null;
-                books = activity.gson.fromJson(response.response, BookModel[].class);
+                books = activity.gson.fromJson(response.response, ResponseBookModel.BookModel[].class);
             } catch (JSONException ignored) {}
 
 
@@ -68,11 +69,12 @@ public class InfoUserFragment extends Fragment {
 
             if (books != null) {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                for (BookModel book: books) {
+                for (ResponseBookModel.BookModel book: books) {
                     BookView bookView = new BookView(activity);
                     bookView.setData(book);
                     booksList.addView(bookView.getView(), layoutParams);
                 }
+                booksList.addView(new NotificationView.NotificationViewNull(getContext(), books.length > 0? "" : getString(R.string.nullPlaceholder)).getView());
             }
 
             return view;
@@ -115,6 +117,7 @@ public class InfoUserFragment extends Fragment {
                     noteView.setData(note);
                     notesList.addView(noteView.getView(), layoutParams);
                 }
+                notesList.addView(new NotificationView.NotificationViewNull(getContext(), notes.length > 0? "" : getString(R.string.nullPlaceholder)).getView());
             }
 
             return view;

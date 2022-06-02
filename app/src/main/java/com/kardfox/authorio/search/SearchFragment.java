@@ -44,7 +44,10 @@ public class SearchFragment extends Fragment {
         if (notification.object_type == NotificationTypes.NEW_NOTE.intType) {
             // TODO: make new_note
         } else if (notification.object_type == NotificationTypes.NEW_BOOK.intType) {
-            // TODO: make new_book
+            InfoBookFragment infoBookFragment = new InfoBookFragment(activity, notification.object_id);
+
+            activity.setSelected(Section.SEARCH);
+            activity.changeFragment(infoBookFragment, new int[] {R.anim.slide_left_enter, R.anim.slide_right_exit});
         } else if (notification.object_type == NotificationTypes.NEW_CHAPTER.intType) {
             // TODO: make new_chapter
         } else if (notification.object_type == NotificationTypes.NEW_LOVER.intType) {

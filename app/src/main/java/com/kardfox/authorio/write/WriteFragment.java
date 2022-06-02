@@ -98,14 +98,30 @@ public class WriteFragment extends Fragment {
         Button buttonChangeProfile = view.findViewById(R.id.buttonChangeProfile);
         buttonChangeProfile.setOnClickListener(_view -> {
             changeProfileFragment = new ChangeProfileFragment(activity);
+            activity.hideBar();
             activity.changeFragment(changeProfileFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
+        });
+
+        Button buttonAdd = view.findViewById(R.id.buttonAddItem);
+        buttonAdd.setOnClickListener(_view -> {
+            int position = tabLayout.getSelectedTabPosition();
+            if (position == 0) {
+                AddBookFragment addBookFragment = new AddBookFragment(activity);
+                activity.hideBar();
+                activity.changeFragment(addBookFragment, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
+            } else {
+                //TODO: Сделать добавление записок
+            }
         });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (view != null && activity != null) setData(view);
+        if (view != null && activity != null) {
+            setData(view);
+            activity.showBar();
+        }
     }
 
     @Override

@@ -14,8 +14,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton toSearch;
     private ImageButton toWrite;
 
+    public FrameLayout bottomNavigation;
+
     public int selected;
 
     public Server.URLs URLs = new Server.URLs();
@@ -93,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void initMain() {
         setContentView(R.layout.activity_main);
+
+        bottomNavigation = findViewById(R.id.bottomNavigation);
 
         fMain = new MainFragment();
         fSearch = new SearchFragment(this);
@@ -161,9 +167,9 @@ public class MainActivity extends AppCompatActivity {
         UserModel.delete(db);
         request(new JSONObject(), URLs.logout);
         setContentView(R.layout.activity_main_not_login);
-        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        Animation animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
         ConstraintLayout root = findViewById(R.id.fragmentContainer);
-        root.startAnimation(animSlideDown);
+        root.startAnimation(animSlideUp);
         changeFragment(fLogIn, new int[] {R.anim.slide_up, R.anim.slide_down});
     }
 
@@ -210,6 +216,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return response;
+    }
+
+    public int getStateBar() {
+        return bottomNavigation.getVisibility();
+    }
+
+    public void hideBar() {
+        if (getStateBar() == View.VISIBLE) {
+            Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+            bottomNavigation.startAnimation(animSlideDown);
+            bottomNavigation.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void showBar() {
+        if (getStateBar() == View.INVISIBLE) {
+            bottomNavigation.setVisibility(View.VISIBLE);
+            Animation animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+            bottomNavigation.startAnimation(animSlideUp);
+        }
     }
 
     private void setNotConnection() {

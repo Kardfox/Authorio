@@ -81,6 +81,7 @@ public class MainFragment extends Fragment {
 
     public void loadNotifications() {
         LinearLayout container = view.findViewById(R.id.notes);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         if (NotificationView.Notification.notifications != null) {
             container.removeAllViews();
             
@@ -99,9 +100,7 @@ public class MainFragment extends Fragment {
                 noteV.setPadding(0, 20, 0, 0);
                 container.addView(noteV);
             }
-            String textForNullView = NotificationView.Notification.notifications.length > 0? "" : getString(R.string.nullPlaceholder);
-            NotificationView.NotificationViewNull viewNull = new NotificationView.NotificationViewNull(getContext(), textForNullView);
-            container.addView(viewNull.getView());
+            container.addView(new NotificationView.NotificationViewNull(getContext(), NotificationView.Notification.notifications.length > 0? "" : getString(R.string.nullPlaceholder)).getView(), layoutParams);
         } else {
             container.removeAllViews();
         }

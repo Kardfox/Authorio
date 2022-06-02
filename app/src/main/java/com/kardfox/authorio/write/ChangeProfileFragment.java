@@ -100,6 +100,7 @@ public class ChangeProfileFragment extends Fragment {
         });
 
         Button saveChanges = view.findViewById(R.id.buttonSaveChanges);
+        activity.hideBar();
         saveChanges.setOnClickListener(_view -> {
             try {
                 String newName = editName.getText().toString();
@@ -118,6 +119,7 @@ public class ChangeProfileFragment extends Fragment {
             UserModel newUser = activity.gson.fromJson(response.response, UserModel.class);
             activity.changeUser(newUser);
             activity.changeFragment(activity.fWrite, new int[] {R.anim.slide_left_enter, R.anim.slide_right_exit});
+            activity.showBar();
         });
 
         return view;

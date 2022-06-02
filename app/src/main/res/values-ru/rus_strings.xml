@@ -26,7 +26,7 @@
 
     <!-- MAIN -->
     <string name="authorListText">Авторы:</string>
-    <string name="nullPlaceholder">\nУведомления отсутствуют</string>
+    <string name="nullPlaceholder">Пусто</string>
     <string name="search">Книга, библиотека или автор</string>
 
     <!-- AUTHOR -->
@@ -46,4 +46,10 @@
     <string name="newPassword">Новый пароль</string>
     <string name="passwordsAreSame">Пароли одинаковы</string>
     <string name="successfulPasswordEdit">Пароль изменен</string>
+    <string name="title">Название</string>
+    <string name="addBookText">Добавление книги</string>
+    <string name="tagsText">Тэги(до 15)</string>
+    <string name="add">Добавить</string>
+    <string name="emptyEntries">Есть пустые поля</string>
+    <string name="tooManyTags">Слишком много тэгов</string>
 </resources>

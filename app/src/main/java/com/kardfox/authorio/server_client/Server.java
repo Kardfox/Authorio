@@ -17,6 +17,7 @@ public class Server {
 
         //book
         public String books_get = String.format("%s/books/get", main);
+        public String book_get;
 
         //notes
         public final String notes_get = String.format("%s/notes/get", main);
@@ -30,6 +31,9 @@ public class Server {
         public String change_user;
         public String change_password;
 
+        //books
+        public String add_book;
+
         //notify
         public String notifications_read;
 
@@ -42,6 +46,8 @@ public class Server {
             change_password = String.format("%s/user/change_password/%s", main, token);
             subscribe = String.format("%s/users/add/love_author/%s", main, token);
             notifications_read = String.format("%s/notifications/read/%s", main, token);
+            add_book = String.format("%s/books/add/%s", main, token);
+            book_get = String.format("%s/book/get/%s", main, token);
         }
     }
 

@@ -40,6 +40,7 @@ public class ChangePasswordFragment extends Fragment {
         TextView textErrors = view.findViewById(R.id.textChangePassErrors);
 
         Button sendChanges = view.findViewById(R.id.buttonChangePasswordFr);
+        activity.hideBar();
         sendChanges.setOnClickListener(_view -> {
             String oldPassword = editOldPassword.getText().toString();
             String newPassword = editNewPassword.getText().toString();
@@ -68,6 +69,7 @@ public class ChangePasswordFragment extends Fragment {
 
             Toast.makeText(activity, R.string.successfulPasswordEdit, Toast.LENGTH_LONG).show();
             activity.changeFragment(activity.fWrite.changeProfileFragment, new int[] {R.anim.slide_left_enter, R.anim.slide_right_exit});
+            activity.showBar();
         });
 
         return view;
