@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
 
+        fMain = null;
+
         fMain = new MainFragment();
         fSearch = new SearchFragment(this);
         fWrite = new WriteFragment(this);

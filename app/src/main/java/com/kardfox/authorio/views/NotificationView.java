@@ -63,6 +63,7 @@ public class NotificationView extends ConstraintLayout {
                 if (response.code != 200) return;
                 notifications = activity.gson.fromJson(response.response, NotificationModel[].class);
             } catch (Exception exception) {
+                notifications = null;
                 Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());
             }
         }

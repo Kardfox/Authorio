@@ -35,8 +35,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        AuthorView.Author.updateList(activity.GLOBAL_USER, activity);
-        NotificationView.Notification.updateList(activity.GLOBAL_USER, activity);
         loadAuthors();
         loadNotifications();
     }
@@ -48,8 +46,8 @@ public class MainFragment extends Fragment {
     }
 
     public void loadAuthors() {
+        AuthorView.Author.updateList(activity.GLOBAL_USER, activity);
         LinearLayout container = view.findViewById(R.id.loveAuthors);
-        container.removeAllViews();
         if (AuthorView.Author.authors != null) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             for (UserModel loveAuthor : AuthorView.Author.authors) {
@@ -65,13 +63,15 @@ public class MainFragment extends Fragment {
                 loveAuthorV.setPadding(15, 0, 0, 0);
                 container.addView(loveAuthorV, layoutParams);
             }
+        } else {
+            container.removeAllViews();
         }
     }
 
     public void loadNotifications() {
+        NotificationView.Notification.updateList(activity.GLOBAL_USER, activity);
         LinearLayout container = view.findViewById(R.id.notes);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        container.removeAllViews();
         if (NotificationView.Notification.notifications != null) {
             for (NotificationModel notification : NotificationView.Notification.notifications) {
                 if (notification.object_type == 5) {
@@ -87,9 +87,12 @@ public class MainFragment extends Fragment {
                 View noteV = notificationView.getView();
                 noteV.setPadding(0, 20, 0, 0);
                 container.addView(noteV);
-            }
-        }
 
-        container.addView(new NotificationView.NotificationViewNull(getContext(), NotificationView.Notification.notifications != null? "" : getString(R.string.nullPlaceholder)).getView(), layoutParams);
+                container.addView(new NotificationView.NotificationViewNull(getContext(), "").getView(), layoutParams);
+            }
+        } else {
+            container.removeAllViews();
+            container.addView(new NotificationView.NotificationViewNull(getContext(), getString(R.string.nullPlaceholder)).getView(), layoutParams);
+        }
     }
 }

@@ -55,6 +55,7 @@ public class AuthorView extends FrameLayout {
                 if (response.code != 200) return;
                 authors = activity.gson.fromJson(response.response, UserModel[].class);
             } catch (Exception exception) {
+                authors = null;
                 Log.e(MainActivity.LOG_TAG, exception.getLocalizedMessage());
             }
         }
