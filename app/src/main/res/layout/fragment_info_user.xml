@@ -6,15 +6,15 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
-        app:shapeAppearanceOverlay="@style/roundedImage"
         android:id="@+id/authorPhotoInfo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImage" />
 
     <TextView
         android:id="@+id/authorNameInfo"
@@ -32,12 +32,13 @@
         android:id="@+id/authorDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="30dp"
         android:text="description"
-        app:layout_constraintEnd_toEndOf="@+id/authorNameInfo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/authorNameInfo"
-        app:layout_constraintTop_toBottomOf="@+id/authorNameInfo" />
+        app:layout_constraintStart_toStartOf="@+id/authorPhotoInfo"
+        app:layout_constraintTop_toBottomOf="@+id/authorPhotoInfo" />
 
     <Button
         android:id="@+id/buttonSubscribe"
@@ -62,7 +63,7 @@
         android:id="@+id/divider8"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/authorDescription"
         tools:layout_editor_absoluteX="0dp" />

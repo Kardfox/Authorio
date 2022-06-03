@@ -24,35 +24,37 @@
         android:id="@+id/authorNameInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="12dp"
         android:text="Android"
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@+id/authorPhoto"
         app:layout_constraintStart_toEndOf="@+id/authorPhoto"
         app:layout_constraintTop_toTopOf="@+id/authorPhoto"
-        app:layout_constraintVertical_bias="0.369" />
+        app:layout_constraintVertical_bias="0.459" />
 
     <TextView
         android:id="@+id/authorDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="description"
-        app:layout_constraintEnd_toEndOf="@+id/authorNameInfo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/authorNameInfo"
-        app:layout_constraintTop_toBottomOf="@+id/authorNameInfo" />
+        app:layout_constraintStart_toStartOf="@+id/authorPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/authorPhoto" />
 
     <Button
         android:id="@+id/buttonChangeProfile"
         android:layout_width="125dp"
         android:layout_height="43dp"
+        android:layout_marginStart="12dp"
         android:text="@string/changeProfile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/authorPhoto"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toStartOf="@+id/authorPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/authorDescription"
-        app:layout_constraintVertical_bias="0.066" />
+        app:layout_constraintBottom_toBottomOf="@+id/buttonLogOut"
+        app:layout_constraintStart_toEndOf="@+id/buttonLogOut"
+        app:layout_constraintTop_toTopOf="@+id/buttonLogOut"
+        app:layout_constraintVertical_bias="1.0" />
 
     <View
         android:id="@+id/divider5"
@@ -68,17 +70,15 @@
 
     <Button
         android:id="@+id/buttonLogOut"
-        android:layout_width="87dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="5dp"
+        android:layout_width="70dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/second_pink"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/logOut"
-        app:layout_constraintBottom_toBottomOf="@+id/authorNameInfo"
-        app:layout_constraintStart_toEndOf="@+id/authorNameInfo"
-        app:layout_constraintTop_toTopOf="@+id/authorNameInfo"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintStart_toStartOf="@+id/authorPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/authorDescription" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -113,13 +113,14 @@
         android:id="@+id/loversCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:text="Lovers: 100500"
         android:textColor="@color/second_pink"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/buttonChangeProfile"
         app:layout_constraintStart_toEndOf="@+id/buttonChangeProfile"
-        app:layout_constraintTop_toTopOf="@+id/buttonChangeProfile" />
+        app:layout_constraintTop_toTopOf="@+id/buttonChangeProfile"
+        app:layout_constraintVertical_bias="0.375" />
 
     <Button
         android:id="@+id/buttonAddItem"

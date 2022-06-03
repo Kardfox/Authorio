@@ -33,33 +33,24 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        if (view != null) {
-            AuthorView.Author.updateList(activity.GLOBAL_USER, activity);
-            NotificationView.Notification.updateList(activity.GLOBAL_USER, activity);
-
-            loadAuthors();
-            loadNotifications();
-        }
+    public void onResume() {
+        super.onResume();
+        AuthorView.Author.updateList(activity.GLOBAL_USER, activity);
+        NotificationView.Notification.updateList(activity.GLOBAL_USER, activity);
+        loadAuthors();
+        loadNotifications();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main, container, false);
-
-        loadAuthors();
-        loadNotifications();
-
         return view;
     }
 
     public void loadAuthors() {
         LinearLayout container = view.findViewById(R.id.loveAuthors);
+        container.removeAllViews();
         if (AuthorView.Author.authors != null) {
-            container.removeAllViews();
-
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             for (UserModel loveAuthor : AuthorView.Author.authors) {
                 AuthorView authorView = new AuthorView(getContext());
@@ -80,9 +71,8 @@ public class MainFragment extends Fragment {
     public void loadNotifications() {
         LinearLayout container = view.findViewById(R.id.notes);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        container.removeAllViews();
         if (NotificationView.Notification.notifications != null) {
-            container.removeAllViews();
-            
             for (NotificationModel notification : NotificationView.Notification.notifications) {
                 if (notification.object_type == 5) {
                     notification.text = String.format("%s\n%s", notification.title, notification.text);

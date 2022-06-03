@@ -32,7 +32,7 @@
     <string name="lostConnection">We are lost connection...\nSorryyy</string>
 
     <!-- SEARCH -->
-    <string name="search">Book, library or user</string>
+    <string name="search">Book or user</string>
     <string name="subscribe">Subscribe</string>
     <string name="unsubscribe">Unsubscribe</string>
     <string name="changeProfile">Change</string>

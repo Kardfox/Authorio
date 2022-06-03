@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextNote3"
+        android:id="@+id/editBookDescription"
         style="@style/Widget.Material3.TextInputEditText.FilledBox"
         android:layout_width="0dp"
         android:layout_height="148dp"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="@+id/editBookTitle"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editBookTitle"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNote3" />
+        app:layout_constraintTop_toBottomOf="@+id/editBookDescription" />
 
     <TextView
         android:id="@+id/textBookErrors"

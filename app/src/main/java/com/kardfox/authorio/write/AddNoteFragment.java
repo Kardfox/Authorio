@@ -39,7 +39,7 @@ public class AddNoteFragment extends Fragment {
 
         buttonUpload.setOnClickListener(_view -> {
             String noteText = editTextNote.getText().toString();
-            if (noteText.length() < 10) return;
+            if (noteText.length() < 1) return;
 
             JSONObject json = new JSONObject();
             try {
@@ -50,7 +50,7 @@ public class AddNoteFragment extends Fragment {
             if (response.code != 200) return;
 
             activity.changeFragment(activity.fWrite, new int[] {R.anim.slide_right_enter, R.anim.slide_left_exit});
-            TabLayout.Tab tab = activity.fWrite.tabLayout.getTabAt(1);
+            TabLayout.Tab tab = activity.fWrite.tabLayout.getTabAt(0);
             tab.select();
             activity.showBar();
         });

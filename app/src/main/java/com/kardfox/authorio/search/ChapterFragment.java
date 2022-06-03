@@ -15,11 +15,10 @@ import com.kardfox.authorio.R;
 
 public class ChapterFragment extends Fragment {
     public ChapterFragment() {}
+    String text;
 
-    MainActivity activity;
-
-    public ChapterFragment(MainActivity activity) {
-        this.activity = activity;
+    public ChapterFragment(String text) { ;
+        this.text = text;
     }
 
     @Nullable
@@ -27,9 +26,8 @@ public class ChapterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chapter, container, false);
 
-        TextView text = view.findViewById(R.id.textChapter);
-
-        activity.hideBar();
+        TextView textChapter = view.findViewById(R.id.textChapter);
+        textChapter.setText(text);
 
         return view;
     }

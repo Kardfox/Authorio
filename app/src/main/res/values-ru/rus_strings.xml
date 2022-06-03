@@ -10,6 +10,7 @@
 
     <string name="buttonLogInText">Войти </string>
     <string name="buttonSignUpText">Регистрация </string>
+    <string name="upload">Опубликовать</string>
 
     <!-- WARNINGS -->
     <string name="appError">Ошибка приложения</string>

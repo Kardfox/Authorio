@@ -24,7 +24,7 @@ public class NoteView extends ConstraintLayout {
 
         authorName.setText(note.authorname);
         textNote.setText(note.text);
-        datetime.setText(note.datetime);
+        datetime.setText(note.upload_date);
     }
 
     public View getView() { return view; }

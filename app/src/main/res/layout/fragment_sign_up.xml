@@ -76,7 +76,7 @@
         app:layout_constraintHorizontal_bias="0.881"
         app:layout_constraintStart_toStartOf="@+id/editPassword2"
         app:layout_constraintTop_toTopOf="@+id/editPassword2"
-        app:layout_constraintVertical_bias="0.317"
+        app:layout_constraintVertical_bias="0.273"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -105,7 +105,7 @@
         android:id="@+id/editName"
         android:layout_width="283dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="152dp"
         android:ems="10"
         android:hint="@string/namePlaceholder"
         android:inputType="textPersonName"

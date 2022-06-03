@@ -5,5 +5,5 @@ public class NoteModel extends Model {
     public String user_id;
     public String text;
     public String authorname;
-    public String datetime;
+    public String upload_date;
 }

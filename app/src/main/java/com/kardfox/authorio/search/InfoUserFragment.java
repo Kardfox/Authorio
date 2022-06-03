@@ -67,6 +67,7 @@ public class InfoUserFragment extends Fragment {
 
 
             LinearLayout booksList = view.findViewById(R.id.booksList);
+            booksList.removeAllViews();
 
             if (books != null) {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -118,6 +119,7 @@ public class InfoUserFragment extends Fragment {
 
 
             LinearLayout notesList = view.findViewById(R.id.notesList);
+            notesList.removeAllViews();
 
             if (notes != null) {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);

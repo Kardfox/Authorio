@@ -117,7 +117,7 @@ public class ChangeProfileFragment extends Fragment {
             Response response = activity.request(changes, activity.URLs.change_user);
             if (response.code != 200) return;
             UserModel newUser = activity.gson.fromJson(response.response, UserModel.class);
-            activity.changeUser(newUser);
+            if (newUser != null) activity.changeUser(newUser);
             activity.changeFragment(activity.fWrite, new int[] {R.anim.slide_left_enter, R.anim.slide_right_exit});
             activity.showBar();
         });

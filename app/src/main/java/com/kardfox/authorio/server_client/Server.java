@@ -19,6 +19,10 @@ public class Server {
         public String books_get = String.format("%s/books/get", main);
         public String book_get;
 
+        //chapters
+        public String get_chapter;
+        public String add_chapter;
+
         //notes
         public final String notes_get = String.format("%s/notes/get", main);
         public String add_note;
@@ -50,6 +54,8 @@ public class Server {
             add_book = String.format("%s/books/add/%s", main, token);
             book_get = String.format("%s/book/get/%s", main, token);
             add_note = String.format("%s/notes/add/%s", main, token);
+            get_chapter = String.format("%s/book/chapter/get/%s", main, token);
+            add_chapter = String.format("%s/book/chapters/add/%s", main, token);
         }
     }
 
